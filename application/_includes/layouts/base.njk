@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="{{ metadata.language }}">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVYQXNLTKV"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+
+		gtag('js', new Date());
+
+		gtag('config', 'G-VVYQXNLTKV');
+	</script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WorkdayTracker - {{ title or metadata.title }}</title>
+	<meta name="description" content="{{ description or metadata.description }}">
+	<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
+	{% favicons './public/img/logo.png', appleIconBgColor='#123' %}
+	{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
+	{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
+
+	{#-
+	Plain-text bundles are provided via the `eleventy-plugin-bundle` plugin:
+	1. CSS:
+		* Add to a per-page bundle using `{% css %}{% endcss %}`
+		* Retrieve bundle content using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
+	2. Or for JavaScript:
+		* Add to a per-page bundle using `{% js %}{% endjs %}`
+		* Retrieve via `{% getBundle "js" %}` or `{% getBundleFileUrl "js" %}`
+	3. Learn more: https://github.com/11ty/eleventy-plugin-bundle
+	#}
+
+	{#- Add an arbitrary string to the bundle #}
+	{%- css %}
+		body {
+		font-family: 'Open Sans', sans-serif; sans-serif !important;
+		}
+	{% endcss %}
+	{#- Add the contents of a file to the bundle #}
+	{%- css %}{% include "public/css/index.css" %}{% endcss %}
+	{%- css %}{% include "public/css/tailwind.css" %}{%- endcss %}
+	{#- Or you can add from node_modules #}
+	{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
+
+	{%- css %}
+		body {
+		font-family: 'Open Sans', sans-serif; sans-serif !important;
+		}
+	{% endcss %}
+
+	{#- Render the CSS bundle using inlined CSS (for the fastest site performance in production) #}
+	{#  <style>{% getBundle "css" %}</style> #}
+	{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
+	<link rel="stylesheet" href="{% getBundleFileUrl "css" %}">
+
+	{#- Add the heading-anchors web component to the JavaScript bundle #}
+	{%- js %}{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}{% endjs %}
+</head>
+<body class="leading-normal tracking-normal text-white gradient"
+			style="font-family: 'Open Sans', sans-serif; sans-serif !important;">
+<nav id="header" class="fixed w-full z-30 top-0 text-white">
+	<div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
+		<div class="pl-4 flex items-center">
+			<a class="toggleColour text-white no-underline hover:no-underline font-bold text-1xl lg:text-2xl" href="/">
+				<span class="toggleColour text-white dark-blue-text-on-scroll">ARTZ</span><span
+					class="toggleColour text-white light-blue-text-on-scroll">HOLDINGS</span>
+			</a>
+		</div>
+		<div class="flex-grow"></div>
+		<div
+			class="w-full lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
+			id="nav-content">
+			<a href="/book"
+				 id="navAction"
+				 class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
+			>
+				Book Now
+			</a>
+		</div>
+	</div>
+	<hr class="border-b border-gray-100 opacity-25 my-0 py-0"/>
+</nav>
+
+{{ content | safe }}
+
+<footer class="bg-white">
+	<div class="container mx-auto px-8">
+		<div class="w-full flex flex-col md:flex-row py-6">
+			<div class="flex-1 mb-6 text-black">
+				<a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+					<!--Icon from: http://www.potlabicons.com/ -->
+					<a class="toggleColour text-white no-underline hover:no-underline font-bold text-1xl lg:text-1xl"
+						 href="/">
+						<span class="dark-blue-text">ARTZ</span><span class="light-blue-text">HOLDINGS</span>
+					</a>
+				</a>
+			</div>
+			<div class="flex-1"></div>
+			<div class="flex-1">
+				<p class="uppercase text-gray-500 md:mb-6">Company</p>
+				<ul class="list-reset mb-6">
+					<li class="mt-2 inline-block mr-2 md:block md:mr-0">
+						<a href="/about-us" class="no-underline hover:underline text-gray-800 hover:text-pink-500">About Us</a>
+					</li>
+					<li class="mt-2 inline-block mr-2 md:block md:mr-0">
+						<a href="/contact" class="no-underline hover:underline text-gray-800 hover:text-pink-500">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="py-10 border-t">
+		<div class="container mx-auto text-center text-sm dark-blue-text">
+			© 2012 – 2025 • ArtzHoldings LLC • All Rights Reserved
+		</div>
+	</div>
+
+	<!-- This page `{{ page.url }}` was built on {% currentBuildDate %} -->
+	<script>
+		var scrollpos = window.scrollY;
+		var header = document.getElementById("header");
+		var navcontent = document.getElementById("nav-content");
+		var navaction = document.getElementById("navAction");
+		var brandname = document.getElementById("brandname");
+		var toToggle = document.querySelectorAll(".toggleColour");
+
+		// Function to update header based on scroll position
+		function updateHeader() {
+			scrollpos = window.scrollY;
+
+			if (scrollpos > 10) {
+				header.classList.add("bg-white", "scrolled");
+				navaction.classList.remove("bg-white");
+				navaction.classList.add("gradient");
+				navaction.classList.remove("text-gray-800");
+				navaction.classList.add("text-white");
+				//Use to switch toggleColour colours
+				for (var i = 0; i < toToggle.length; i++) {
+					toToggle[i].classList.remove("text-white");
+					toToggle[i].classList.add("text-gray-800");
+				}
+				header.classList.add("shadow");
+				navcontent.classList.remove("bg-gray-100");
+				navcontent.classList.add("bg-white");
+			} else {
+				header.classList.remove("bg-white", "scrolled");
+				navaction.classList.remove("gradient");
+				navaction.classList.add("bg-white");
+				navaction.classList.remove("text-white");
+				navaction.classList.add("text-gray-800");
+				//Use to switch toggleColour colours
+				for (var i = 0; i < toToggle.length; i++) {
+					toToggle[i].classList.remove("text-gray-800");
+					toToggle[i].classList.add("text-white");
+				}
+				header.classList.remove("shadow");
+				navcontent.classList.remove("bg-white");
+				navcontent.classList.add("bg-gray-100");
+			}
+		}
+
+		// Initialize header state on page load
+		document.addEventListener("DOMContentLoaded", updateHeader);
+
+		// Update on scroll
+		document.addEventListener("scroll", updateHeader);
+	</script>
+
+	<!-- Start of HubSpot Embed Code -->
+	<script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/242125849.js"></script>
+	<!-- End of HubSpot Embed Code -->
+
+	<script type="module" src="{% getBundleFileUrl "js" %}"></script>
+
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+				rel="stylesheet">
+	<link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet"/>
+</body>
+</html>

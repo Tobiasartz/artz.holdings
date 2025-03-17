@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="{{ metadata.language }}">
+<head>
+    // ... other head elements ...
+    
+    {# Remove the old Tailwind include #}
+    {# {%- css %}{% include "public/css/tailwind.css" %}{%- endcss %} #}
+    
+    {# Add the new compiled CSS file #}
+    <link rel="stylesheet" href="/css/styles.css">
+    
+    // ... rest of head
+</head>
+// ... rest of template 

@@ -1,0 +1,32 @@
+.gradient {
+	background: linear-gradient(90deg, #2a7bd7 0%, #94bce8 100%);
+}
+
+.dark-blue-text {
+	color: #1f469e;
+}
+
+.light-blue-text {
+	color: #97b8e3;
+}
+
+.video-js-container {
+	max-width: 800px;
+	margin: auto;
+}
+
+.dark-blue-text-on-scroll {
+	transition: color 0.3s ease;
+}
+
+.light-blue-text-on-scroll {
+	transition: color 0.3s ease;
+}
+
+.scrolled .dark-blue-text-on-scroll {
+	color: #1f469e;
+}
+
+.scrolled .light-blue-text-on-scroll {
+	color: #97b8e3;
+}

@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+.gradient {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.dark-blue-text {
+    color: #667eea;
+}
+
+.light-blue-text {
+    color: #764ba2;
+}
+
+/* Add scrolled header styles */
+#header.scrolled .dark-blue-text-on-scroll {
+    color: #667eea;
+}
+
+#header.scrolled .light-blue-text-on-scroll {
+    color: #764ba2;
+} 
