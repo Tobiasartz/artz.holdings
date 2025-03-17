@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-VVYQXNLTKV"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-VVYQXNLTKV');
+	</script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WorkdayTracker - Getting started with the Desktop App</title>
+	<meta name="description" content="AI-Powered Productivity, Time and Attendance Monitoring.">
+	<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="WorkdayTracker">
+	
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+	
+
+	<link rel="stylesheet" href="/dist/4ihjha0YlT.css">
+</head>
+<body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Open Sans', sans-serif; sans-serif !important;">
+<nav id="header" class="fixed w-full z-30 top-0 text-white">
+	<div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
+		<div class="pl-4 flex items-center">
+			<a class="toggleColour text-white no-underline hover:no-underline font-bold text-1xl lg:text-2xl" href="/">
+				<picture><source type="image/avif" srcset="/.11ty/image/?src=content%2Flogo.png&width=300&format=avif&via=transform 300w"><source type="image/webp" srcset="/.11ty/image/?src=content%2Flogo.png&width=300&format=webp&via=transform 300w"><img alt="" loading="lazy" decoding="async" src="/.11ty/image/?src=content%2Flogo.png&width=300&format=jpeg&via=transform" class="inline-block w-10" width="300" height="300"></picture>
+
+				<span class="toggleColour text-white dark-blue-text-on-scroll">WORKDAY</span><span class="toggleColour text-white light-blue-text-on-scroll">TRACKER</span>
+			</a>
+		</div>
+		<div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content">
+			<ul class="list-reset lg:flex justify-end flex-1 items-center">
+				<li class="mr-3">
+					<a class="inline-block no-underline hover:text-gray-800 hover:text-underline py-2 px-4 toggleColour text-white nav-link" data-section="how-does-it-work" href="/#how-does-it-work" onclick="scrollToSection(event, 'how-does-it-work')">How does it work</a>
+				</li>
+				<li class="mr-3">
+					<a class="inline-block no-underline hover:text-gray-800 hover:text-underline py-2 px-4 toggleColour text-white nav-link" data-section="features" href="/#features" onclick="scrollToSection(event, 'features')">Features</a>
+				</li>
+				<li class="mr-3">
+					<a class="inline-block no-underline hover:text-gray-800 hover:text-underline py-2 px-4 toggleColour text-white nav-link" data-section="pricing" href="/#pricing" onclick="scrollToSection(event, 'pricing')">Pricing</a>
+				</li>
+			</ul>
+			<a href="/app/auth/sign-up?ref=company" id="navAction" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+				Sign Up
+			</a>
+			<ul class="list-reset lg:flex justify-end items-center">
+				<li class="mr-3">
+					<a class="inline-block no-underline hover:text-gray-800 hover:text-underline py-2 px-4 toggleColour text-white" href="/app/auth/sign-in">Sign In</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<hr class="border-b border-gray-100 opacity-25 my-0 py-0">
+</nav>
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+	<div class="w-full mb-8">
+		<video controls="controls" class="w-full h-auto rounded-lg shadow-lg">
+			<source src="https://storage.googleapis.com/incomemath.com/video/training/WDT%20-%20Demo%20-%20Desktop%20App.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+	</div>
+
+	<p class="text-lg mb-8">
+		WorkdayTracker is designed to help you stay on top of your workday by tracking your activity in a seamless and transparent way.
+		In this guide, we'll walk you through how to install, set up, and use the <strong class="font-semibold">WorkdayTracker desktop app</strong> on Windows and Mac.
+	</p>
+
+	<hr class="my-8 border-gray-200">
+
+	<h3 class="text-2xl font-bold mb-4" id="what-is-the-workdaytracker-desktop-app">What is the WorkdayTracker Desktop App?</h3>
+	<p class="mb-4">The <strong class="font-semibold">desktop app</strong> is the heart of WorkdayTracker, allowing you to record your work activity efficiently. It tracks:</p>
+	<ul class="list-disc pl-6 mb-4 space-y-2">
+		<li>Mouse and keyboard activity (not keystrokes, just activity presence).</li>
+		<li>Windows in focus to understand which applications are being used.</li>
+		<li>Running applications to track productivity.</li>
+		<li>Hardware details for troubleshooting and performance tracking.</li>
+		<li>Screenshots at regular intervals for activity validation.</li>
+	</ul>
+	<p class="bg-blue-50 p-4 rounded-lg"><strong class="font-semibold">Note:</strong> The app <em class="italic">only records when you allow it to</em> and can be paused at any time for privacy.</p>
+
+	<hr class="my-8 border-gray-200">
+
+	<h3 class="text-2xl font-bold mb-4" id="step-1-download-and-install-the-workdaytracker-app">Step 1: Download & Install the WorkdayTracker App</h3>
+	<p class="mb-4"><strong class="font-semibold">Getting Started:</strong></p>
+	<ol class="list-decimal pl-6 mb-4 space-y-2">
+		<li>Go to <a href="https://workdaytracker.com" class="text-blue-600 hover:text-blue-800 underline">WorkdayTracker.com</a>.</li>
+		<li>Log in to your account. If you don't have one yet, sign up for free.</li>
+		<li>Navigate to the <strong class="font-semibold">Downloads</strong> section.</li>
+		<li>Select and download the version that matches your operating system (<strong class="font-semibold">Windows or macOS</strong>).</li>
+		<li>Follow the installation instructions for your system.</li>
+	</ol>
+	<p class="bg-blue-50 p-4 rounded-lg"><strong class="font-semibold">Note:</strong> In this guide, we assume the app has already been installed.</p>
+
+	<hr class="my-8 border-gray-200">
+
+	<h3 class="text-2xl font-bold mb-4" id="step-2-grant-permissions">Step 2: Grant Permissions</h3>
+	<p class="mb-4">When you open the app for the first time, it may request permissions required for proper functionality.</p>
+	<ul class="list-disc pl-6 mb-4 space-y-2">
+		<li><strong class="font-semibold">Windows Users:</strong> Grant requested permissions when prompted.</li>
+		<li><strong class="font-semibold">Mac Users:</strong> You may need to allow permissions in <em class="italic">System Preferences > Security & Privacy</em>.</li>
+	</ul>
+	<p class="bg-blue-50 p-4 rounded-lg"><strong class="font-semibold">Tip:</strong> Restart the app after granting permissions to ensure all settings take effect.</p>
+
+	<hr class="my-8 border-gray-200">
+
+	<h3 class="text-2xl font-bold mb-4" id="step-3-authorize-the-app">Step 3: Authorize the App</h3>
+	<p class="mb-4">Before you can start recording, you'll need to <strong class="font-semibold">authorize</strong> the app with your WorkdayTracker account:</p>
+	<ol class="list-decimal pl-6 mb-4 space-y-2">
+		<li>Open the WorkdayTracker desktop app.</li>
+		<li>Click the <strong class="font-semibold">Authorize</strong> button to open the device authorization page in your browser.</li>
+		<li>Confirm authorization on the WorkdayTracker website.</li>
+		<li>Return to the app—after a few seconds, it will authenticate successfully.</li>
+	</ol>
+
+	<hr class="my-8 border-gray-200">
+
+	<h3 class="text-2xl font-bold mb-4" id="step-4-select-your-company-and-contract">Step 4: Select Your Company & Contract</h3>
+	<p class="mb-4">Once the app is authorized, you'll need to choose where to log your work time:</p>
+	<ol class="list-decimal pl-6 mb-4 space-y-2">
+		<li>Select the <strong class="font-semibold">Company</strong> you're working for.</li>
+		<li>Choose the <strong class="font-semibold">Contract</strong> assigned to you.</li>
+		<li>Click <strong class="font-semibold">Confirm</strong> to proceed to the main app interface.</li>
+	</ol>
+	<p class="bg-blue-50 p-4 rounded-lg"><strong class="font-semibold">Note:</strong> Only contracts assigned to you will be visible.</p>
+
+	<hr class="my-8 border-gray-200">
+
+	<h3 class="text-2xl font-bold mb-4" id="step-5-understanding-the-workdaytracker-interface">Step 5: Understanding the WorkdayTracker Interface</h3>
+	<h5 class="text-xl font-semibold mb-3" id="top-menu-options">Top Menu Options</h5>
+	<p class="mb-4">At the top of the app, you'll find quick-access options:</p>
+	<ul class="list-disc pl-6 mb-6 space-y-2">
+		<li><strong class="font-semibold">Switch contracts</strong> anytime.</li>
+		<li><strong class="font-semibold">Open the Knowledge Base</strong> for troubleshooting and guides.</li>
+		<li><strong class="font-semibold">Log out or de-authorize</strong> the app when needed.</li>
+	</ul>
+
+	<h5 class="text-xl font-semibold mb-3" id="active-tasks-manager">Active Tasks Manager</h5>
+	<p class="mb-4">In the center, you'll see your <strong class="font-semibold">assigned tasks</strong>:</p>
+	<ul class="list-disc pl-6 mb-6 space-y-2">
+		<li>Tasks with a <strong class="font-semibold">checked box</strong> are active, meaning any recorded time will be attributed to them.</li>
+		<li>Uncheck tasks if you don't want to track time for them.</li>
+	</ul>
+
+	<h5 class="text-xl font-semibold mb-3" id="recording-controls">Recording Controls</h5>
+	<p class="mb-4">At the bottom, you'll find your recording controls:</p>
+	<ol class="list-decimal pl-6 mb-4 space-y-2">
+		<li><strong class="font-semibold">Start Recording:</strong> Click the <strong class="font-semibold">Record</strong> button to begin tracking your work.</li>
+		<li><strong class="font-semibold">Stop Recording:</strong> Click <strong class="font-semibold">Stop</strong> anytime to end tracking.</li>
+		<li><strong class="font-semibold">Pause:</strong> Prevents activity from being recorded while keeping the session active.</li>
+	</ol>
+	<p class="mb-4">The <strong class="font-semibold">recording timer</strong> on the right shows how long you've been tracking. It resets each time you stop and start.</p>
+
+	<p class="bg-blue-50 p-4 rounded-lg mb-8"><strong class="font-semibold">Tip:</strong> Minimizing the app does <em class="italic">not</em> stop the recording. However, closing the app completely <em class="italic">will</em> stop the recording.</p>
+
+	<hr class="my-8 border-gray-200">
+
+	<h3 class="text-2xl font-bold mb-4" id="final-thoughts">Final Thoughts</h3>
+	<p class="mb-4">That's it! You're now set up with WorkdayTracker. The desktop app makes it easy to track time, manage tasks, and stay productive.</p>
+
+	<p class="mb-4">
+		Need further assistance? Visit our <a href="https://workdaytracker.com/help" class="text-blue-600 hover:text-blue-800 underline">Knowledge Base</a> 
+		or contact <a href="mailto:support@workdaytracker.com" class="text-blue-600 hover:text-blue-800 underline">support@workdaytracker.com</a>.
+	</p>
+
+	<p class="text-xl font-bold text-center mt-8">Happy tracking! 🚀</p>
+</div>
+
+
+
+<footer class="bg-white">
+	<div class="container mx-auto px-8">
+		<div class="w-full flex flex-col md:flex-row py-6">
+			<div class="flex-1 mb-6 text-black">
+				<a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+					<!--Icon from: http://www.potlabicons.com/ -->
+					<a class="toggleColour text-white no-underline hover:no-underline font-bold text-1xl lg:text-1xl" href="/">
+						<picture><source type="image/avif" srcset="/.11ty/image/?src=content%2Flogo.png&width=300&format=avif&via=transform 300w"><source type="image/webp" srcset="/.11ty/image/?src=content%2Flogo.png&width=300&format=webp&via=transform 300w"><img alt="" loading="lazy" decoding="async" src="/.11ty/image/?src=content%2Flogo.png&width=300&format=jpeg&via=transform" class="inline-block w-10" width="300" height="300"></picture>
+						<span class="dark-blue-text">WORKDAY</span><span class="light-blue-text">TRACKER</span>
+					</a>
+				</a>
+			</div>
+			<div class="flex-1"></div>
+			<div class="flex-1">
+				<p class="uppercase text-gray-500 md:mb-6">Company</p>
+				<ul class="list-reset mb-6">
+					<li class="mt-2 inline-block mr-2 md:block md:mr-0">
+						<a href="/about-us" class="no-underline hover:underline text-gray-800 hover:text-pink-500">About Us</a>
+					</li>
+					<li class="mt-2 inline-block mr-2 md:block md:mr-0">
+						<a href="/contact" class="no-underline hover:underline text-gray-800 hover:text-pink-500">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="py-10 border-t">
+		<div class="container mx-auto text-center text-sm dark-blue-text">
+			© 2012 – 2025 • WorkdayTracker.com • All Rights Reserved - <a href="/terms-of-service">Terms of Service</a> / <a href="/privacy-policy">Privacy Policy</a>
+		</div>
+	</div>
+
+	<!-- This page `/support/getting-started-with-the-desktop-app/` was built on 2025-03-16T19:58:04.756Z -->
+	<script>
+		var scrollpos = window.scrollY;
+		var header = document.getElementById("header");
+		var navcontent = document.getElementById("nav-content");
+		var navaction = document.getElementById("navAction");
+		var brandname = document.getElementById("brandname");
+		var toToggle = document.querySelectorAll(".toggleColour");
+
+		// Function to update header based on scroll position
+		function updateHeader() {
+			scrollpos = window.scrollY;
+
+			if (scrollpos > 10) {
+				header.classList.add("bg-white", "scrolled");
+				navaction.classList.remove("bg-white");
+				navaction.classList.add("gradient");
+				navaction.classList.remove("text-gray-800");
+				navaction.classList.add("text-white");
+				//Use to switch toggleColour colours
+				for (var i = 0; i < toToggle.length; i++) {
+					toToggle[i].classList.remove("text-white");
+					toToggle[i].classList.add("text-gray-800");
+				}
+				header.classList.add("shadow");
+				navcontent.classList.remove("bg-gray-100");
+				navcontent.classList.add("bg-white");
+			} else {
+				header.classList.remove("bg-white", "scrolled");
+				navaction.classList.remove("gradient");
+				navaction.classList.add("bg-white");
+				navaction.classList.remove("text-white");
+				navaction.classList.add("text-gray-800");
+				//Use to switch toggleColour colours
+				for (var i = 0; i < toToggle.length; i++) {
+					toToggle[i].classList.remove("text-gray-800");
+					toToggle[i].classList.add("text-white");
+				}
+				header.classList.remove("shadow");
+				navcontent.classList.remove("bg-white");
+				navcontent.classList.add("bg-gray-100");
+			}
+		}
+
+		// Initialize header state on page load
+		document.addEventListener("DOMContentLoaded", updateHeader);
+
+		// Update on scroll
+		document.addEventListener("scroll", updateHeader);
+	</script>
+
+	<!-- Start of HubSpot Embed Code -->
+	<script type="text/javascript" id="hs-script-loader" async="" defer="" src="//js-na2.hs-scripts.com/242125849.js"></script>
+	<!-- End of HubSpot Embed Code -->
+
+	<script type="module" src="/dist/xbxy_EL6cU.js"></script>
+
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+	<link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet">
+</footer></body>
+</html>
