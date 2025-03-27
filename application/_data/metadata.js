@@ -1,10 +1,10 @@
 export default {
-	title: "WorkdayTracker",
-	url: "https://workdaytracker.com/",
+	title: "ArtzHoldings LLC",
+	url: "https://artz.holdings/",
 	language: "en",
-	description: "AI-Powered Productivity, Time and Attendance Monitoring.",
+	description: "Scottsdale's best short-term rentals",
 	author: {
 		name: "Tobias Artz",
-		email: "info@workdaytracker.com",
+		email: "info@artz.holdings",
 	}
 }

@@ -2,32 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	
 	<url>
-		<loc>https://workdaytracker.com/</loc>
+		<loc>https://artz.holdings/</loc>
 		<lastmod>2025-03-16</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://workdaytracker.com/help/</loc>
+		<loc>https://artz.holdings/help/</loc>
 		<lastmod>2025-03-16</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://workdaytracker.com/agreement/</loc>
+		<loc>https://artz.holdings/agreement/</loc>
 		<lastmod>2025-03-16</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://workdaytracker.com/book/</loc>
+		<loc>https://artz.holdings/contact/</loc>
 		<lastmod>2025-03-16</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://workdaytracker.com/privacy-policy/</loc>
+		<loc>https://artz.holdings/privacy-policy/</loc>
 		<lastmod>2025-03-16</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://workdaytracker.com/feed/feed.xml</loc>
-		<lastmod>2025-03-17</lastmod>
+		<loc>https://artz.holdings/book/</loc>
+		<lastmod>2025-03-27</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://artz.holdings/feed/feed.xml</loc>
+		<lastmod>2025-03-27</lastmod>
 	</url>
 </urlset>
