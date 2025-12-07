@@ -259,7 +259,7 @@
 			<tr>
 				<td class="py-2">Cleaning fee</td>
 				<td class="py-2 text-right">One-time fee</td>
-				<td class="py-2 text-right">$150.00</td>
+				<td class="py-2 text-right">$<span data-cleaning-fee=""></span></td>
 			</tr>
 			<tr class="border-t border-gray-300">
 				<td class="py-2 font-semibold">Total Amount Due</td>
@@ -656,7 +656,7 @@
 		const dailyRate = parseFloat(urlParams.get('dailyRate')) || 375.00;
 		const numDays = parseInt(urlParams.get('numDays')) || 2;
 		const address = urlParams.get('address') || '8329 E Weldon Ave, Scottsdale, AZ 85251'; // Default address
-		const cleaningFee = 150.00; // Fixed cleaning fee
+		const cleaningFee = parseFloat(urlParams.get('cleaningFee')) || 150.00; // Default cleaning fee
 
 		// Initialize signature pad
 		const guestCanvas = document.getElementById('guestSignature');
@@ -765,6 +765,7 @@
 		document.querySelector('[data-daily-rate]').textContent = dailyRate.toFixed(2);
 		document.querySelector('[data-num-days]').textContent = numDays;
 		document.querySelector('[data-subtotal]').textContent = subtotal.toFixed(2);
+		document.querySelector('[data-cleaning-fee]').textContent = cleaningFee.toFixed(2);
 		document.querySelector('[data-total]').textContent = total.toFixed(2);
 
 		// Handle additional guest inputs
