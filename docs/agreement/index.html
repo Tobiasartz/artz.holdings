@@ -656,7 +656,7 @@
 		const dailyRate = parseFloat(urlParams.get('dailyRate')) || 375.00;
 		const numDays = parseInt(urlParams.get('numDays')) || 2;
 		const address = urlParams.get('address') || '8329 E Weldon Ave, Scottsdale, AZ 85251'; // Default address
-		const cleaningFee = parseFloat(urlParams.get('cleaningFee')) || 150.00; // Default cleaning fee
+		const cleaningFee = urlParams.has('cleaningFee') ? parseFloat(urlParams.get('cleaningFee')) : 150.00; // Default cleaning fee
 
 		// Initialize signature pad
 		const guestCanvas = document.getElementById('guestSignature');
