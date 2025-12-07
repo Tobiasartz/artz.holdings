@@ -99,7 +99,8 @@
 		<li>washer</li>
 		<li>dryer</li>
 		<li>wifi</li>
-		<li>swimming pool</li>
+		<li data-amenity-pool="">swimming pool</li>
+		<li data-amenity-spa="" style="display: none;">spa</li>
 		<li>linens</li>
 	</ul>
 
@@ -657,6 +658,8 @@
 		const numDays = parseInt(urlParams.get('numDays')) || 2;
 		const address = urlParams.get('address') || '8329 E Weldon Ave, Scottsdale, AZ 85251'; // Default address
 		const cleaningFee = urlParams.has('cleaningFee') ? parseFloat(urlParams.get('cleaningFee')) : 150.00; // Default cleaning fee
+		const hasPool = urlParams.get('hasPool') !== 'false'; // Default to true (show pool)
+		const hasSpa = urlParams.get('hasSpa') === 'true'; // Default to false (hide spa)
 
 		// Initialize signature pad
 		const guestCanvas = document.getElementById('guestSignature');
@@ -747,6 +750,16 @@
 		document.querySelectorAll('[data-address]').forEach(element => {
 			element.textContent = address;
 		});
+
+		// Update amenities visibility
+		const poolAmenity = document.querySelector('[data-amenity-pool]');
+		const spaAmenity = document.querySelector('[data-amenity-spa]');
+		if (poolAmenity) {
+			poolAmenity.style.display = hasPool ? 'list-item' : 'none';
+		}
+		if (spaAmenity) {
+			spaAmenity.style.display = hasSpa ? 'list-item' : 'none';
+		}
 
 		// Update arrival date
 		document.querySelectorAll('[data-arrival-date]').forEach(element => {
