@@ -88,7 +88,7 @@
 
 	<h2 class="text-2xl font-semibold mt-8 mb-4" id="1-property">1. Property.</h2>
 
-	<p class="mb-4">The property is described as a house located at 8329 E Weldon Ave, Scottsdale, AZ 85251
+	<p class="mb-4">The property is described as a house located at <span data-address=""></span>
 		(the "Property"). The Property is owned by Owner. The Property is fully furnished by Owner and equipped
 		for light housekeeping. The following amenities are included in the Property:</p>
 
@@ -655,6 +655,7 @@
 		const rawArrivalDate = urlParams.get('arrivalDate') || ''; // Format: MM/DD/YYYY
 		const dailyRate = parseFloat(urlParams.get('dailyRate')) || 375.00;
 		const numDays = parseInt(urlParams.get('numDays')) || 2;
+		const address = urlParams.get('address') || '8329 E Weldon Ave, Scottsdale, AZ 85251'; // Default address
 		const cleaningFee = 150.00; // Fixed cleaning fee
 
 		// Initialize signature pad
@@ -740,6 +741,11 @@
 		// Update all guest name instances
 		document.querySelectorAll('[data-main-guest-name]').forEach(element => {
 			element.textContent = guestName;
+		});
+
+		// Update address
+		document.querySelectorAll('[data-address]').forEach(element => {
+			element.textContent = address;
 		});
 
 		// Update arrival date
