@@ -16,7 +16,7 @@
 	</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ArtzHoldings - Page Not Found</title>
+	<title>ArtzHoldings - Generate Agreement Link</title>
 	<meta name="description" content="Scottsdale&#39;s best short-term rentals">
 	<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="ArtzHoldings LLC">
 	
@@ -52,8 +52,8 @@
     <div class="container px-3 mx-auto md:py-20 lg:py-8 flex flex-wrap flex-col md:flex-row items-center">
         <!--Left Col-->
         <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-            <h1 class="my-4 text-5xl font-bold leading-tight" id="page-not-found">
-                Page Not Found
+            <h1 class="my-4 text-5xl font-bold leading-tight" id="generate-agreement-link">
+                Generate Agreement Link
             </h1>
         </div>
     </div>
@@ -75,19 +75,137 @@
 
 <section class="bg-white border-b py-8" id="features">
     <div class="container max-w-5xl mx-auto m-8">
-			<h1 id="content-not-found">Content not found.</h1>
-<div class="w-full mb-4 text-gray-800">
-  <div class="text-center py-40">
-    <div class="text-9xl font-bold dark-blue-text mb-4">404</div>
-    <div class="text-3xl font-semibold mb-6">Page Not Found</div>
-    <p class="text-gray-600 mb-8">
-      We're sorry, but the page you were looking for could not be found.
-    </p>
-    <a href="/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Go Home
-    </a>
-  </div>
+			
+<div class="max-w-2xl mx-auto px-4 py-8 text-gray-800">
+	<h1 class="text-3xl font-bold mb-6 text-center" id="generate-agreement-link-2">Generate Agreement Link</h1>
+
+	<form id="linkForm" class="space-y-4 bg-white p-6 rounded shadow">
+		<div>
+			<label class="block text-sm font-medium mb-1">Guest Name</label>
+			<input type="text" name="guestName" required="" class="w-full px-3 py-2 border border-gray-300 rounded">
+		</div>
+
+		<div>
+			<label class="block text-sm font-medium mb-1">Property Address</label>
+			<input type="text" name="address" value="8329 E Weldon Ave, Scottsdale, AZ 85251" class="w-full px-3 py-2 border border-gray-300 rounded">
+		</div>
+
+		<div>
+			<label class="block text-sm font-medium mb-1">Arrival Date</label>
+			<input type="date" name="arrivalDate" required="" class="w-full px-3 py-2 border border-gray-300 rounded">
+		</div>
+
+		<div>
+			<label class="block text-sm font-medium mb-1">Number of Days</label>
+			<input type="number" name="numDays" min="1" value="2" required="" class="w-full px-3 py-2 border border-gray-300 rounded">
+		</div>
+
+		<div>
+			<label class="block text-sm font-medium mb-1">Daily Rate (USD)</label>
+			<input type="number" name="dailyRate" min="0" step="0.01" value="375.00" required="" class="w-full px-3 py-2 border border-gray-300 rounded">
+		</div>
+
+		<div>
+			<label class="block text-sm font-medium mb-1">Cleaning Fee (USD)</label>
+			<input type="number" name="cleaningFee" min="0" step="0.01" value="150.00" required="" class="w-full px-3 py-2 border border-gray-300 rounded">
+		</div>
+
+		<div class="flex gap-6">
+			<label class="flex items-center gap-2">
+				<input type="checkbox" name="hasPool" checked=""> Pool
+			</label>
+			<label class="flex items-center gap-2">
+				<input type="checkbox" name="hasSpa"> Spa
+			</label>
+		</div>
+
+		<div>
+			<label class="block text-sm font-medium mb-2">Additional Guests</label>
+			<div id="additionalGuests" class="space-y-2"></div>
+			<button type="button" id="addGuestBtn" class="mt-2 px-3 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">
+				+ Add Guest
+			</button>
+		</div>
+
+		<button type="submit" class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+			Generate Link
+		</button>
+	</form>
+
+	<div id="result" class="mt-6 hidden">
+		<label class="block text-sm font-medium mb-1">Generated Link</label>
+		<div class="flex gap-2">
+			<input type="text" id="resultLink" readonly="" class="flex-1 px-3 py-2 border border-gray-300 rounded bg-gray-50 text-sm">
+			<button type="button" id="copyBtn" class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800">Copy</button>
+		</div>
+		<a id="openLink" href="#" target="_blank" class="inline-block mt-2 text-blue-600 hover:underline text-sm">Open in new tab →</a>
+	</div>
 </div>
+
+<script>
+	const relations = ['Spouse', 'Child', 'Family Member', 'Friend'];
+	const additionalGuestsEl = document.getElementById('additionalGuests');
+
+	function addGuestRow() {
+		const row = document.createElement('div');
+		row.className = 'flex gap-2 guest-row';
+		row.innerHTML = `
+			<input type="text" placeholder="Name" class="flex-1 px-3 py-2 border border-gray-300 rounded guest-name">
+			<select class="px-3 py-2 border border-gray-300 rounded guest-relation">
+				<option value="">Relation</option>
+				${relations.map(r => `<option value="${r}">${r}</option>`).join('')}
+			</select>
+			<button type="button" class="px-3 py-2 bg-red-100 text-red-700 rounded remove-btn">×</button>
+		`;
+		row.querySelector('.remove-btn').addEventListener('click', () => row.remove());
+		additionalGuestsEl.appendChild(row);
+	}
+
+	document.getElementById('addGuestBtn').addEventListener('click', addGuestRow);
+
+	document.getElementById('linkForm').addEventListener('submit', function (e) {
+		e.preventDefault();
+		const fd = new FormData(this);
+
+		// Convert YYYY-MM-DD -> MM/DD/YYYY
+		const [y, m, d] = fd.get('arrivalDate').split('-');
+		const arrivalDate = `${m}/${d}/${y}`;
+
+		const additionalGuests = [];
+		document.querySelectorAll('.guest-row').forEach(row => {
+			const name = row.querySelector('.guest-name').value.trim();
+			const relation = row.querySelector('.guest-relation').value;
+			if (name && relation) additionalGuests.push({ name, relation });
+		});
+
+		const params = new URLSearchParams({
+			guestName: fd.get('guestName'),
+			address: fd.get('address'),
+			arrivalDate,
+			numDays: fd.get('numDays'),
+			dailyRate: fd.get('dailyRate'),
+			cleaningFee: fd.get('cleaningFee'),
+			hasPool: fd.get('hasPool') ? 'true' : 'false',
+			hasSpa: fd.get('hasSpa') ? 'true' : 'false',
+		});
+		if (additionalGuests.length) {
+			params.set('additionalGuests', JSON.stringify(additionalGuests));
+		}
+
+		const url = `${window.location.origin}/agreement/?${params.toString()}`;
+		document.getElementById('resultLink').value = url;
+		document.getElementById('openLink').href = url;
+		document.getElementById('result').classList.remove('hidden');
+	});
+
+	document.getElementById('copyBtn').addEventListener('click', function () {
+		const input = document.getElementById('resultLink');
+		input.select();
+		navigator.clipboard.writeText(input.value);
+		this.textContent = 'Copied!';
+		setTimeout(() => (this.textContent = 'Copy'), 1500);
+	});
+</script>
 
     </div>
 </section>
@@ -149,7 +267,7 @@
 		</div>
 	</div>
 
-	<!-- This page `/404.html` was built on 2026-04-09T03:21:27.651Z -->
+	<!-- This page `/agreement-link/` was built on 2026-04-09T03:21:27.631Z -->
 	<script>
 		var scrollpos = window.scrollY;
 		var header = document.getElementById("header");

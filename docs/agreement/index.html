@@ -26,7 +26,7 @@
 
 	
 	
-	<link rel="stylesheet" href="/dist/nMzJlwBCnk.css">
+	<link rel="stylesheet" href="/dist/0rPYTKqpeG.css">
 </head>
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Open Sans', sans-serif; sans-serif !important;">
 <nav id="header" class="print:hidden fixed w-full z-30 top-0 text-white">
@@ -460,7 +460,7 @@
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
 		<div class="border rounded-lg p-4 bg-white">
 			<div class="mb-4">
-				<canvas id="guestSignature" class="border rounded w-full" height="200"></canvas>
+				<canvas id="guestSignature" class="border rounded w-full" style="height: 200px;"></canvas>
 				<div class="flex justify-between mt-2">
 					<button type="button" onclick="clearGuestSignature()" class="text-red-600 hover:text-red-800">
 						Clear Signature
@@ -656,10 +656,10 @@
 		const rawArrivalDate = urlParams.get('arrivalDate') || ''; // Format: MM/DD/YYYY
 		const dailyRate = parseFloat(urlParams.get('dailyRate')) || 375.00;
 		const numDays = parseInt(urlParams.get('numDays')) || 2;
-		const address = urlParams.get('address') || '8329 E Weldon Ave, Scottsdale, AZ 85251'; // Default address
-		const cleaningFee = urlParams.has('cleaningFee') ? parseFloat(urlParams.get('cleaningFee')) : 150.00; // Default cleaning fee
-		const hasPool = urlParams.get('hasPool') !== 'false'; // Default to true (show pool)
-		const hasSpa = urlParams.get('hasSpa') === 'true'; // Default to false (hide spa)
+		const address = urlParams.get('address') || '8329 E Weldon Ave, Scottsdale, AZ 85251';
+		const cleaningFee = urlParams.has('cleaningFee') ? parseFloat(urlParams.get('cleaningFee')) : 150.00;
+		const hasPool = urlParams.get('hasPool') !== 'false';
+		const hasSpa = urlParams.get('hasSpa') === 'true';
 
 		// Initialize signature pad
 		const guestCanvas = document.getElementById('guestSignature');
@@ -668,7 +668,7 @@
 		function resizeCanvas(canvas) {
 			const ratio = Math.max(window.devicePixelRatio || 1, 1);
 			canvas.width = canvas.offsetWidth * ratio;
-			canvas.height = canvas.height * ratio;
+			canvas.height = canvas.offsetHeight * ratio;
 			canvas.getContext("2d").scale(ratio, ratio);
 		}
 
@@ -746,21 +746,6 @@
 			element.textContent = guestName;
 		});
 
-		// Update address
-		document.querySelectorAll('[data-address]').forEach(element => {
-			element.textContent = address;
-		});
-
-		// Update amenities visibility
-		const poolAmenity = document.querySelector('[data-amenity-pool]');
-		const spaAmenity = document.querySelector('[data-amenity-spa]');
-		if (poolAmenity) {
-			poolAmenity.style.display = hasPool ? 'list-item' : 'none';
-		}
-		if (spaAmenity) {
-			spaAmenity.style.display = hasSpa ? 'list-item' : 'none';
-		}
-
 		// Update arrival date
 		document.querySelectorAll('[data-arrival-date]').forEach(element => {
 			element.textContent = arrivalDate;
@@ -780,6 +765,17 @@
 		document.querySelector('[data-subtotal]').textContent = subtotal.toFixed(2);
 		document.querySelector('[data-cleaning-fee]').textContent = cleaningFee.toFixed(2);
 		document.querySelector('[data-total]').textContent = total.toFixed(2);
+
+		// Update address
+		document.querySelectorAll('[data-address]').forEach(element => {
+			element.textContent = address;
+		});
+
+		// Toggle pool/spa amenities
+		const poolAmenity = document.querySelector('[data-amenity-pool]');
+		if (poolAmenity) poolAmenity.style.display = hasPool ? 'list-item' : 'none';
+		const spaAmenity = document.querySelector('[data-amenity-spa]');
+		if (spaAmenity) spaAmenity.style.display = hasSpa ? 'list-item' : 'none';
 
 		// Handle additional guest inputs
 		const guestInputs = document.querySelectorAll('[data-guest-name]');
@@ -891,7 +887,7 @@
 		</div>
 	</div>
 
-	<!-- This page `/agreement/` was built on 2025-03-27T03:49:27.072Z -->
+	<!-- This page `/agreement/` was built on 2026-04-09T03:21:27.634Z -->
 	<script>
 		var scrollpos = window.scrollY;
 		var header = document.getElementById("header");

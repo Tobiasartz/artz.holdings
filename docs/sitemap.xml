@@ -2,37 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	
 	<url>
-		<loc>https://artz.holdings/</loc>
-		<lastmod>2025-03-16</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://artz.holdings/help/</loc>
-		<lastmod>2025-03-16</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://artz.holdings/agreement/</loc>
-		<lastmod>2025-03-16</lastmod>
+		<loc>https://artz.holdings/book/</loc>
+		<lastmod>2026-04-09</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://artz.holdings/contact/</loc>
-		<lastmod>2025-03-16</lastmod>
+		<lastmod>2026-04-09</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://artz.holdings/help/</loc>
+		<lastmod>2026-04-09</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://artz.holdings/</loc>
+		<lastmod>2026-04-09</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://artz.holdings/privacy-policy/</loc>
-		<lastmod>2025-03-16</lastmod>
+		<lastmod>2026-04-09</lastmod>
 	</url>
 	
 	<url>
-		<loc>https://artz.holdings/book/</loc>
-		<lastmod>2025-03-27</lastmod>
+		<loc>https://artz.holdings/agreement/</loc>
+		<lastmod>2026-04-09</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://artz.holdings/agreement-link/</loc>
+		<lastmod>2026-04-09</lastmod>
 	</url>
 	
 	<url>
 		<loc>https://artz.holdings/feed/feed.xml</loc>
-		<lastmod>2025-03-27</lastmod>
+		<lastmod>2026-04-09</lastmod>
 	</url>
 </urlset>

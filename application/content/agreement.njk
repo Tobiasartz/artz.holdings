@@ -15,7 +15,7 @@ title: Agreement
 
 	<h2 class="text-2xl font-semibold mt-8 mb-4">1. Property.</h2>
 
-	<p class="mb-4">The property is described as a house located at 8323 E Weldon Ave, Scottsdale, AZ 85251
+	<p class="mb-4">The property is described as a house located at <span data-address></span>
 		(the "Property"). The Property is owned by Owner. The Property is fully furnished by Owner and equipped
 		for light housekeeping. The following amenities are included in the Property:</p>
 
@@ -26,7 +26,8 @@ title: Agreement
 		<li>washer</li>
 		<li>dryer</li>
 		<li>wifi</li>
-		<li>swimming pool</li>
+		<li data-amenity-pool>swimming pool</li>
+		<li data-amenity-spa style="display: none;">spa</li>
 		<li>linens</li>
 	</ul>
 
@@ -192,7 +193,7 @@ title: Agreement
 			<tr>
 				<td class="py-2">Cleaning fee</td>
 				<td class="py-2 text-right">One-time fee</td>
-				<td class="py-2 text-right">$150.00</td>
+				<td class="py-2 text-right">$<span data-cleaning-fee></span></td>
 			</tr>
 			<tr class="border-t border-gray-300">
 				<td class="py-2 font-semibold">Total Amount Due</td>
@@ -392,7 +393,7 @@ title: Agreement
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
 		<div class="border rounded-lg p-4 bg-white">
 			<div class="mb-4">
-				<canvas id="guestSignature" class="border rounded w-full" height="200"></canvas>
+				<canvas id="guestSignature" class="border rounded w-full" style="height: 200px;"></canvas>
 				<div class="flex justify-between mt-2">
 					<button type="button" onclick="clearGuestSignature()" class="text-red-600 hover:text-red-800">
 						Clear Signature
@@ -599,7 +600,10 @@ title: Agreement
 		const rawArrivalDate = urlParams.get('arrivalDate') || ''; // Format: MM/DD/YYYY
 		const dailyRate = parseFloat(urlParams.get('dailyRate')) || 375.00;
 		const numDays = parseInt(urlParams.get('numDays')) || 2;
-		const cleaningFee = 150.00; // Fixed cleaning fee
+		const address = urlParams.get('address') || '8329 E Weldon Ave, Scottsdale, AZ 85251';
+		const cleaningFee = urlParams.has('cleaningFee') ? parseFloat(urlParams.get('cleaningFee')) : 150.00;
+		const hasPool = urlParams.get('hasPool') !== 'false';
+		const hasSpa = urlParams.get('hasSpa') === 'true';
 
 		// Initialize signature pad
 		const guestCanvas = document.getElementById('guestSignature');
@@ -608,7 +612,7 @@ title: Agreement
 		function resizeCanvas(canvas) {
 			const ratio = Math.max(window.devicePixelRatio || 1, 1);
 			canvas.width = canvas.offsetWidth * ratio;
-			canvas.height = canvas.height * ratio;
+			canvas.height = canvas.offsetHeight * ratio;
 			canvas.getContext("2d").scale(ratio, ratio);
 		}
 
@@ -703,7 +707,19 @@ title: Agreement
 		document.querySelector('[data-daily-rate]').textContent = dailyRate.toFixed(2);
 		document.querySelector('[data-num-days]').textContent = numDays;
 		document.querySelector('[data-subtotal]').textContent = subtotal.toFixed(2);
+		document.querySelector('[data-cleaning-fee]').textContent = cleaningFee.toFixed(2);
 		document.querySelector('[data-total]').textContent = total.toFixed(2);
+
+		// Update address
+		document.querySelectorAll('[data-address]').forEach(element => {
+			element.textContent = address;
+		});
+
+		// Toggle pool/spa amenities
+		const poolAmenity = document.querySelector('[data-amenity-pool]');
+		if (poolAmenity) poolAmenity.style.display = hasPool ? 'list-item' : 'none';
+		const spaAmenity = document.querySelector('[data-amenity-spa]');
+		if (spaAmenity) spaAmenity.style.display = hasSpa ? 'list-item' : 'none';
 
 		// Handle additional guest inputs
 		const guestInputs = document.querySelectorAll('[data-guest-name]');
