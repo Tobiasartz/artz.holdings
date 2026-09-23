@@ -1,8 +1,26 @@
 ---
 layout: layouts/basic.njk
-title: Support
+title: Guest help
+eyebrow: During your stay
+description: Quick answers for guests who are already staying with us.
+contentClass: max-w-3xl
 ---
-<div class="w-full mb-4 text-gray-800">
-	{% set postslist = collections.help %}
-	{% include "postslist.njk" %}
+{%- from "components/icons.njk" import icon -%}
+<div class="space-y-6">
+	<div class="card p-6">
+		<h2 class="text-lg font-semibold text-ink-900">Check-in and checkout</h2>
+		<p class="mt-2 text-sm text-ink-700">Check-in is after 4:00 PM using the keypad code from your check-in email. Checkout is before 11:00 AM. If you need an early arrival or late departure, message us and we'll tell you what the calendar allows.</p>
+	</div>
+	<div class="card p-6">
+		<h2 class="text-lg font-semibold text-ink-900">Pool and hot tub</h2>
+		<p class="mt-2 text-sm text-ink-700">Pool heating at the Poolside Retreat is always on. Please keep the hot tub covers on when not in use and never leave children unattended near the water.</p>
+	</div>
+	<div class="card p-6">
+		<h2 class="text-lg font-semibold text-ink-900">Quiet hours and neighbors</h2>
+		<p class="mt-2 text-sm text-ink-700">Our homes are in residential neighborhoods with evening quiet hours. Scottsdale does not permit parties or events at short-term rentals. Thank you for treating the homes and our neighbors with care.</p>
+	</div>
+	<div class="card p-6">
+		<h2 class="text-lg font-semibold text-ink-900">Something not working?</h2>
+		<p class="mt-2 text-sm text-ink-700">Reply to your check-in email or write to <a href="mailto:{{ metadata.booking.email }}" class="text-clay-700 underline">{{ metadata.booking.email }}</a>. We respond {{ metadata.host.responseTime }}. For emergencies always call 911 first.</p>
+	</div>
 </div>

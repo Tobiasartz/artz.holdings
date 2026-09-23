@@ -1,177 +1,140 @@
+{%- from "components/icons.njk" import icon -%}
+{%- set pageTitle = (title + " | " + metadata.brand) if title and title != metadata.brand else (metadata.brand + " | " + metadata.tagline) -%}
+{%- set pageDescription = description or metadata.description -%}
+{%- set shareImage = ogImage or metadata.ogImage -%}
 <!doctype html>
 <html lang="{{ metadata.language }}">
 <head>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVYQXNLTKV"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-
-		function gtag() {
-			dataLayer.push(arguments);
-		}
-
-		gtag('js', new Date());
-
-		gtag('config', 'G-VVYQXNLTKV');
-	</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ArtzHoldings - {{ title or metadata.title }}</title>
-	<meta name="description" content="{{ description or metadata.description }}">
-	<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
-	{% favicons './public/img/logo.png', appleIconBgColor='#123' %}
-	{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
-	{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
+	<title>{{ pageTitle }}</title>
+	<meta name="description" content="{{ pageDescription }}">
+	<link rel="canonical" href="{{ metadata.root }}{{ page.url }}">
+	{%- if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="{{ metadata.brand }}">
+	<meta property="og:title" content="{{ pageTitle }}">
+	<meta property="og:description" content="{{ pageDescription }}">
+	<meta property="og:url" content="{{ metadata.root }}{{ page.url }}">
+	<meta property="og:image" content="{{ metadata.root }}{{ shareImage }}">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="theme-color" content="#faf7f2">
+	{% favicons './public/img/logo.png', appleIconBgColor='#c2552c' %}
 
-	{#-
-	Plain-text bundles are provided via the `eleventy-plugin-bundle` plugin:
-	1. CSS:
-		* Add to a per-page bundle using `{% css %}{% endcss %}`
-		* Retrieve bundle content using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
-	2. Or for JavaScript:
-		* Add to a per-page bundle using `{% js %}{% endjs %}`
-		* Retrieve via `{% getBundle "js" %}` or `{% getBundleFileUrl "js" %}`
-	3. Learn more: https://github.com/11ty/eleventy-plugin-bundle
-	#}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,0..100&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-	{#- Add an arbitrary string to the bundle #}
-	{%- css %}
-		body {
-		font-family: 'Open Sans', sans-serif; sans-serif !important;
-		}
-	{% endcss %}
-	{#- Add the contents of a file to the bundle #}
+	{%- css %}{% include "public/css/tailwind.css" %}{% endcss %}
 	{%- css %}{% include "public/css/index.css" %}{% endcss %}
-	{%- css %}{% include "public/css/tailwind.css" %}{%- endcss %}
-	{#- Or you can add from node_modules #}
-	{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
-
-	{%- css %}
-		body {
-		font-family: 'Open Sans', sans-serif; sans-serif !important;
-		}
-	{% endcss %}
-
-	{#- Render the CSS bundle using inlined CSS (for the fastest site performance in production) #}
-	{#  <style>{% getBundle "css" %}</style> #}
-	{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
 	<link rel="stylesheet" href="{% getBundleFileUrl "css" %}">
 
-	{#- Add the heading-anchors web component to the JavaScript bundle #}
-	{%- js %}{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}{% endjs %}
-</head>
-<body class="leading-normal tracking-normal text-white gradient"
-			style="font-family: 'Open Sans', sans-serif; sans-serif !important;">
-<nav id="header" class="print:hidden fixed w-full z-30 top-0 text-white">
-	<div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-		<div class="pl-4 flex items-center">
-			<a class="toggleColour text-white no-underline hover:no-underline font-bold text-1xl lg:text-2xl" href="/">
-				<span class="toggleColour text-white dark-blue-text-on-scroll">ARTZ</span><span
-					class="toggleColour text-white light-blue-text-on-scroll">HOLDINGS</span>
-			</a>
-		</div>
-		<div class="flex-grow"></div>
-		<div
-			class="w-full lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
-			id="nav-content">
-			<a href="/book"
-				 id="navAction"
-				 class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
-			>
-				Book Now
-			</a>
-		</div>
-	</div>
-	<hr class="border-b border-gray-100 opacity-25 my-0 py-0"/>
-</nav>
-
-{{ content | safe }}
-
-<footer class="print:hidden bg-white">
-	<div class="container mx-auto px-8">
-		<div class="w-full flex flex-col md:flex-row py-6">
-			<div class="flex-1 mb-6 text-black">
-				<a class="text-pink-600 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-					<!--Icon from: http://www.potlabicons.com/ -->
-					<a class="toggleColour text-white no-underline hover:no-underline font-bold text-1xl lg:text-1xl"
-						 href="/">
-						<span class="dark-blue-text">ARTZ</span><span class="light-blue-text">HOLDINGS</span>
-					</a>
-				</a>
-			</div>
-			<div class="flex-1"></div>
-			<div class="flex-1">
-				<p class="uppercase text-gray-500 md:mb-6">Company</p>
-				<ul class="list-reset mb-6">
-					<li class="mt-2 inline-block mr-2 md:block md:mr-0">
-						<a href="/book" class="no-underline hover:underline text-gray-800 hover:text-pink-500">Contact</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="py-10 border-t">
-		<div class="container mx-auto text-center text-sm dark-blue-text">
-			© 2012 – 2025 • ArtzHoldings LLC • All Rights Reserved
-		</div>
-	</div>
-
-	<!-- This page `{{ page.url }}` was built on {% currentBuildDate %} -->
+	{%- if metadata.analyticsId %}
+	<script async src="https://www.googletagmanager.com/gtag/js?id={{ metadata.analyticsId }}"></script>
 	<script>
-		var scrollpos = window.scrollY;
-		var header = document.getElementById("header");
-		var navcontent = document.getElementById("nav-content");
-		var navaction = document.getElementById("navAction");
-		var brandname = document.getElementById("brandname");
-		var toToggle = document.querySelectorAll(".toggleColour");
-
-		// Function to update header based on scroll position
-		function updateHeader() {
-			scrollpos = window.scrollY;
-
-			if (scrollpos > 10) {
-				header.classList.add("bg-white", "scrolled");
-				navaction.classList.remove("bg-white");
-				navaction.classList.add("gradient");
-				navaction.classList.remove("text-gray-800");
-				navaction.classList.add("text-white");
-				//Use to switch toggleColour colours
-				for (var i = 0; i < toToggle.length; i++) {
-					toToggle[i].classList.remove("text-white");
-					toToggle[i].classList.add("text-gray-800");
-				}
-				header.classList.add("shadow");
-				navcontent.classList.remove("bg-gray-100");
-				navcontent.classList.add("bg-white");
-			} else {
-				header.classList.remove("bg-white", "scrolled");
-				navaction.classList.remove("gradient");
-				navaction.classList.add("bg-white");
-				navaction.classList.remove("text-white");
-				navaction.classList.add("text-gray-800");
-				//Use to switch toggleColour colours
-				for (var i = 0; i < toToggle.length; i++) {
-					toToggle[i].classList.remove("text-gray-800");
-					toToggle[i].classList.add("text-white");
-				}
-				header.classList.remove("shadow");
-				navcontent.classList.remove("bg-white");
-				navcontent.classList.add("bg-gray-100");
-			}
-		}
-
-		// Initialize header state on page load
-		document.addEventListener("DOMContentLoaded", updateHeader);
-
-		// Update on scroll
-		document.addEventListener("scroll", updateHeader);
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', '{{ metadata.analyticsId }}');
 	</script>
+	{%- endif %}
+</head>
+<body class="min-h-screen flex flex-col">
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:shadow">Skip to content</a>
 
-	<script type="module" src="{% getBundleFileUrl "js" %}"></script>
+<header id="site-header" class="sticky top-0 z-40 border-b border-ink-900/5 bg-sand-50/85 backdrop-blur-md transition-shadow print:hidden">
+	<div class="wrap flex h-16 items-center justify-between gap-4">
+		<a href="/" class="flex items-center gap-2.5 text-ink-900 no-underline" aria-label="{{ metadata.brand }} home">
+			<span class="grid h-9 w-9 place-items-center rounded-full bg-clay-600 font-display text-lg font-semibold text-white">A</span>
+			<span class="leading-tight">
+				<span class="block font-display text-lg font-semibold tracking-tight">Artz Holdings</span>
+				<span class="block text-[11px] font-medium uppercase tracking-[0.18em] text-ink-500">Scottsdale stays</span>
+			</span>
+		</a>
 
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-				rel="stylesheet">
+		<nav class="hidden items-center gap-7 text-sm font-medium text-ink-700 md:flex" aria-label="Primary">
+			<a href="/#homes" class="hover:text-ink-900">Our homes</a>
+			<a href="/#why-direct" class="hover:text-ink-900">Why book direct</a>
+			<a href="/#faq" class="hover:text-ink-900">FAQ</a>
+			<a href="/contact/" class="hover:text-ink-900">Contact</a>
+			<a href="/book/" class="btn-primary !py-2.5">Request to book</a>
+		</nav>
+
+		<button id="nav-toggle" type="button" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-ink-900 hover:bg-sand-100" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open menu">
+			{{ icon("menu", "h-6 w-6") }}
+		</button>
+	</div>
+	<div id="nav-mobile" class="hidden border-t border-ink-900/5 bg-sand-50 md:hidden">
+		<nav class="wrap flex flex-col py-3 text-base font-medium text-ink-800" aria-label="Mobile">
+			<a href="/#homes" class="py-3">Our homes</a>
+			<a href="/#why-direct" class="py-3">Why book direct</a>
+			<a href="/#faq" class="py-3">FAQ</a>
+			<a href="/contact/" class="py-3">Contact</a>
+			<a href="/book/" class="btn-primary mt-2 mb-2">Request to book</a>
+		</nav>
+	</div>
+</header>
+
+<main id="main" class="flex-1">
+{{ content | safe }}
+</main>
+
+<footer class="mt-24 border-t border-ink-900/5 bg-sand-100 print:hidden">
+	<div class="wrap grid gap-10 py-14 md:grid-cols-4">
+		<div class="md:col-span-2">
+			<a href="/" class="flex items-center gap-2.5 text-ink-900 no-underline">
+				<span class="grid h-9 w-9 place-items-center rounded-full bg-clay-600 font-display text-lg font-semibold text-white">A</span>
+				<span class="font-display text-lg font-semibold">Artz Holdings</span>
+			</a>
+			<p class="mt-4 max-w-md text-sm leading-relaxed text-ink-500">Two privately owned vacation homes minutes from Old Town Scottsdale, run by a Superhost family for {{ metadata.host.yearsHosting }} years. Book direct for the best rate and a direct line to your host.</p>
+			<p class="mt-4 text-xs text-ink-400">{{ metadata.taxId }}</p>
+		</div>
+		<div>
+			<p class="eyebrow">Our homes</p>
+			<ul class="mt-4 space-y-2 text-sm">
+				{%- for p in properties %}
+				<li><a href="/homes/{{ p.slug }}/" class="text-ink-700 hover:text-clay-700">{{ p.name }}</a></li>
+				{%- endfor %}
+			</ul>
+		</div>
+		<div>
+			<p class="eyebrow">Book and contact</p>
+			<ul class="mt-4 space-y-2 text-sm">
+				<li><a href="/book/" class="text-ink-700 hover:text-clay-700">Request to book</a></li>
+				<li><a href="/contact/" class="text-ink-700 hover:text-clay-700">Contact</a></li>
+				<li><a href="mailto:{{ metadata.booking.email }}" class="text-ink-700 hover:text-clay-700">{{ metadata.booking.email }}</a></li>
+				<li><a href="/agreement/" class="text-ink-700 hover:text-clay-700">Rental agreement</a></li>
+				<li><a href="/privacy-policy/" class="text-ink-700 hover:text-clay-700">Privacy policy</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="border-t border-ink-900/5">
+		<div class="wrap flex flex-col items-center justify-between gap-2 py-6 text-xs text-ink-500 sm:flex-row">
+			<span>© 2012 – {% currentYear %} Artz Holdings LLC. All rights reserved.</span>
+			<span>Scottsdale, Arizona</span>
+		</div>
+	</div>
+</footer>
+
+<script>
+	(function () {
+		var toggle = document.getElementById("nav-toggle");
+		var menu = document.getElementById("nav-mobile");
+		if (!toggle || !menu) return;
+		toggle.addEventListener("click", function () {
+			var open = menu.classList.toggle("hidden") === false;
+			toggle.setAttribute("aria-expanded", open ? "true" : "false");
+			toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+		});
+		menu.querySelectorAll("a").forEach(function (a) {
+			a.addEventListener("click", function () { menu.classList.add("hidden"); toggle.setAttribute("aria-expanded", "false"); });
+		});
+		var header = document.getElementById("site-header");
+		function onScroll() { header.classList.toggle("shadow-soft", window.scrollY > 8); }
+		document.addEventListener("scroll", onScroll, { passive: true });
+		onScroll();
+	})();
+</script>
+<!-- Built {% currentBuildDate %} -->
 </body>
 </html>

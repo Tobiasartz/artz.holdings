@@ -1,0 +1,42 @@
+{%- from "components/icons.njk" import icon -%}
+{%- set faqs = [
+	{ q: "How does booking direct work?", a: "Send us your preferred home, dates and group size through the request form. We confirm availability and send you a quote, usually within a few hours. Once you approve, you sign the short-term rental agreement, pay securely, and receive your keypad code and check-in guide before arrival." },
+	{ q: "Is it really cheaper than Airbnb?", a: "Yes. Airbnb adds a guest service fee on top of the nightly rate. When you book direct there is no platform fee, and our nightly rate is the same or lower than what you see on Airbnb for the same dates." },
+	{ q: "Are the pools and hot tubs heated?", a: "The Old Town Poolside Retreat pool is heated to about 84°F at no extra charge. The Family Hideaway hot tub is included and open 24 hours." },
+	{ q: "Can we bring our dog?", a: "Both homes are pet friendly. The Poolside Retreat charges $100 per pet per reservation and the Family Hideaway $75 per pet. Tell us about your pet when you request dates so we can confirm." },
+	{ q: "How many people can stay?", a: "Each home sleeps up to 8. Scottsdale city code allows a maximum of 6 adults per short-term rental booking, and accompanying children do not count toward that total." },
+	{ q: "What time is check-in and checkout?", a: "Check-in is after 4:00 PM with a keypad, so you can arrive whenever suits you. Checkout is before 11:00 AM. Luggage drop-off is available at the two Old Town homes for early arrivals or late departures." },
+	{ q: "Can we host a party or event?", a: "No. Scottsdale city ordinances prohibit parties and events at short-term rentals, and every home has quiet hours in the evening. They are perfect for families, golf trips and Spring Training groups who want a relaxed home base." },
+	{ q: "Which home is right for us?", a: "Traveling with little ones? The Poolside Retreat has a gated pool and every baby item you can think of, and the Family Hideaway adds a swing set, playhouse and four bedrooms. Want evenings outside? The Poolside Retreat has the fire pit and pergola, and the Family Hideaway has the hot tub. If you are not sure, just ask." }
+] -%}
+<section id="faq" class="scroll-mt-20 bg-sand-100 py-20 md:py-28">
+	<div class="wrap grid gap-10 lg:grid-cols-3">
+		<div>
+			<p class="eyebrow">Good to know</p>
+			<h2 class="mt-3 text-3xl font-semibold text-ink-900 md:text-4xl">Questions guests ask before they book</h2>
+			<p class="mt-4 text-ink-500">Anything else? <a href="/contact/" class="font-semibold text-clay-700 underline">Send us a message</a> and we'll reply {{ metadata.host.responseTime }}.</p>
+		</div>
+		<div class="lg:col-span-2 divide-y divide-ink-900/10 rounded-3xl bg-white px-6 ring-1 ring-ink-900/5">
+			{%- for f in faqs %}
+			<details class="group py-5" {% if loop.first %}open{% endif %}>
+				<summary class="flex items-start justify-between gap-4 text-left text-base font-semibold text-ink-900">
+					<span>{{ f.q }}</span>
+					<span class="chev mt-0.5 shrink-0 text-ink-400 transition">{{ icon("chevron", "h-5 w-5") }}</span>
+				</summary>
+				<p class="mt-3 pr-8 text-sm leading-relaxed text-ink-500">{{ f.a }}</p>
+			</details>
+			{%- endfor %}
+		</div>
+	</div>
+</section>
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": [
+	{%- for f in faqs %}
+		{ "@type": "Question", "name": {{ f.q | dump | safe }}, "acceptedAnswer": { "@type": "Answer", "text": {{ f.a | dump | safe }} } }{% if not loop.last %},{% endif %}
+	{%- endfor %}
+	]
+}
+</script>

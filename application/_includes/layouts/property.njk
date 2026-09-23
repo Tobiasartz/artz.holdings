@@ -1,0 +1,289 @@
+---
+layout: layouts/base.njk
+---
+{%- from "components/icons.njk" import icon -%}
+{%- set p = property -%}
+
+{#- Hero -#}
+<section class="relative isolate min-h-[min(70vh,44rem)] overflow-hidden bg-ink-900 text-white">
+	<img src="{{ p.heroImage.src }}" alt="{{ p.heroImage.alt }}" class="absolute inset-0 -z-10 h-full w-full object-cover" eleventy:widths="960,1440" sizes="100vw" loading="eager" fetchpriority="high">
+	<div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink-900/90 via-ink-900/40 to-ink-900/20"></div>
+	<div class="wrap flex min-h-[min(70vh,44rem)] flex-col justify-end pb-12 pt-32">
+		<a href="/#homes" class="mb-6 inline-flex items-center gap-1 text-sm text-white/70 hover:text-white">{{ icon("arrow", "h-4 w-4 rotate-180") }} All homes</a>
+		<div class="flex flex-wrap items-center gap-3 text-sm">
+			<span class="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1 backdrop-blur">{{ icon("star", "h-4 w-4 text-gold-400") }} <strong>{{ p.rating | rating }}</strong> · {{ p.reviewCount }} reviews</span>
+			<span class="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1 backdrop-blur">{{ icon("trophy", "h-4 w-4 text-gold-400") }} {{ p.airbnbRank }}</span>
+		</div>
+		<h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-tight md:text-6xl">{{ p.name }}</h1>
+		<p class="mt-3 max-w-2xl text-lg text-white/85 md:text-xl">{{ p.tagline }}</p>
+		<ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/90">
+			<li class="inline-flex items-center gap-2">{{ icon("bed", "h-4 w-4") }} {{ p.bedrooms }} bedrooms · {{ p.beds }} beds</li>
+			<li class="inline-flex items-center gap-2">{{ icon("bath", "h-4 w-4") }} {{ p.bathrooms }} bathrooms</li>
+			<li class="inline-flex items-center gap-2">{{ icon("users", "h-4 w-4") }} Sleeps {{ p.guests }}</li>
+			<li class="inline-flex items-center gap-2">{{ icon("location", "h-4 w-4") }} Scottsdale, Arizona</li>
+		</ul>
+		<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+			<a href="/book/?home={{ p.slug }}" class="btn-primary">Request to book {{ icon("arrow", "h-4 w-4") }}</a>
+			<a href="#gallery" class="btn-ghost">{{ icon("images", "h-4 w-4") }} See all photos</a>
+		</div>
+	</div>
+</section>
+
+{#- Gallery -#}
+<section id="gallery" class="wrap scroll-mt-20 py-12 md:py-16">
+	<div class="flex items-end justify-between gap-4">
+		<div>
+			<p class="eyebrow">Photo tour</p>
+			<h2 class="mt-2 text-2xl font-semibold text-ink-900 md:text-3xl">Take a look around</h2>
+		</div>
+		<a href="{{ p.airbnb }}" target="_blank" rel="noopener" class="hidden text-sm font-medium text-ink-500 hover:text-clay-700 sm:inline-flex sm:items-center sm:gap-1">Full photo set on Airbnb {{ icon("external", "h-3.5 w-3.5") }}</a>
+	</div>
+	<div class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4" data-gallery>
+		{%- for g in p.gallery %}
+		<button type="button" class="group relative overflow-hidden rounded-2xl bg-sand-200 {% if loop.first %}col-span-2 row-span-2{% endif %} aspect-[4/3] focus:outline-none focus-visible:ring-4 focus-visible:ring-clay-100" data-index="{{ loop.index0 }}" aria-label="Open photo: {{ g.alt }}">
+			<img src="{{ g.src }}" alt="{{ g.alt }}" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" eleventy:widths="640,1280" sizes="{% if loop.first %}(min-width: 1024px) 600px, 100vw{% else %}(min-width: 1024px) 300px, 50vw{% endif %}">
+		</button>
+		{%- endfor %}
+	</div>
+</section>
+
+<dialog id="lightbox" class="m-auto max-h-[100vh] max-w-[100vw] bg-transparent p-0 text-white backdrop:bg-ink-900/90">
+	<div class="relative flex h-[100vh] w-[100vw] items-center justify-center p-4">
+		<button type="button" data-close class="absolute right-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20" aria-label="Close">{{ icon("x", "h-6 w-6") }}</button>
+		<button type="button" data-prev class="absolute left-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20" aria-label="Previous photo">{{ icon("arrow", "h-6 w-6 rotate-180") }}</button>
+		<button type="button" data-next class="absolute right-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white backdrop-blur hover:bg-white/20" aria-label="Next photo">{{ icon("arrow", "h-6 w-6") }}</button>
+		<figure class="flex max-h-full max-w-5xl flex-col items-center">
+			<img data-lightbox-img src="" alt="" class="max-h-[82vh] w-auto max-w-full rounded-2xl object-contain shadow-2xl">
+			<figcaption data-lightbox-caption class="mt-3 text-center text-sm text-white/80"></figcaption>
+		</figure>
+	</div>
+</dialog>
+
+{#- Body -#}
+<section class="wrap pb-16">
+	<div class="grid gap-12 lg:grid-cols-3">
+		<div class="space-y-16 lg:col-span-2">
+
+			<div>
+				<p class="eyebrow">Why guests love it</p>
+				<h2 class="mt-2 text-2xl font-semibold text-ink-900 md:text-3xl">The highlights</h2>
+				<ul class="mt-6 grid gap-4 sm:grid-cols-2">
+					{%- for h in p.highlights %}
+					<li class="flex gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-900/5">
+						<span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-clay-50 text-clay-600">{{ icon(h.icon, "h-5 w-5") }}</span>
+						<div>
+							<h3 class="font-semibold text-ink-900">{{ h.title }}</h3>
+							<p class="mt-1 text-sm leading-relaxed text-ink-500">{{ h.text }}</p>
+						</div>
+					</li>
+					{%- endfor %}
+				</ul>
+			</div>
+
+			<div>
+				<p class="eyebrow">About the home</p>
+				<h2 class="mt-2 text-2xl font-semibold text-ink-900 md:text-3xl">Make yourself at home</h2>
+				<div class="prose-copy mt-6 text-base leading-relaxed text-ink-700">
+					{%- for para in p.description %}<p>{{ para }}</p>{% endfor %}
+				</div>
+			</div>
+
+			<div>
+				<p class="eyebrow">Where you'll sleep</p>
+				<h2 class="mt-2 text-2xl font-semibold text-ink-900 md:text-3xl">{{ p.bedrooms }} bedrooms, {{ p.beds }} beds</h2>
+				<ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{%- for s in p.sleeping %}
+					<li class="rounded-2xl bg-white p-5 ring-1 ring-ink-900/5">
+						<span class="text-clay-600">{{ icon("sofa" if "sofa" in (s.beds | lower) or "daybed" in (s.beds | lower) else "bed", "h-5 w-5") }}</span>
+						<h3 class="mt-3 font-semibold text-ink-900">{{ s.room }}</h3>
+						<p class="text-sm text-ink-700">{{ s.beds }}</p>
+						{%- if s.note %}<p class="mt-1 text-xs text-ink-400">{{ s.note }}</p>{% endif %}
+					</li>
+					{%- endfor %}
+				</ul>
+			</div>
+
+			<div>
+				<p class="eyebrow">What this home offers</p>
+				<h2 class="mt-2 text-2xl font-semibold text-ink-900 md:text-3xl">Amenities</h2>
+				<div class="mt-6 divide-y divide-ink-900/10 rounded-3xl bg-white px-6 ring-1 ring-ink-900/5">
+					{%- for group, items in p.amenities %}
+					<details class="group py-4" {% if loop.index <= 2 %}open{% endif %}>
+						<summary class="flex items-center justify-between gap-4 font-semibold text-ink-900">
+							<span>{{ group }} <span class="ml-1 text-xs font-normal text-ink-400">{{ items.length }}</span></span>
+							<span class="chev text-ink-400 transition">{{ icon("chevron", "h-5 w-5") }}</span>
+						</summary>
+						<ul class="mt-3 grid gap-x-6 gap-y-2 text-sm text-ink-700 sm:grid-cols-2">
+							{%- for a in items %}<li class="flex items-start gap-2">{{ icon("check", "mt-0.5 h-4 w-4 shrink-0 text-pool-600") }}<span>{{ a }}</span></li>{% endfor %}
+						</ul>
+					</details>
+					{%- endfor %}
+				</div>
+			</div>
+
+			<div>
+				<p class="eyebrow">Location</p>
+				<h2 class="mt-2 text-2xl font-semibold text-ink-900 md:text-3xl">Minutes from Old Town Scottsdale</h2>
+				<p class="mt-4 text-ink-700">{{ p.location.blurb }} The exact address is shared once your booking is confirmed.</p>
+				<ul class="mt-6 grid gap-3 sm:grid-cols-2">
+					{%- for n in p.location.nearby %}
+					<li class="flex items-center justify-between gap-3 rounded-2xl bg-white px-5 py-3 text-sm ring-1 ring-ink-900/5">
+						<span class="inline-flex items-center gap-2 text-ink-800">{{ icon("location", "h-4 w-4 text-clay-600") }} {{ n.place }}</span>
+						<span class="shrink-0 text-ink-500">{{ n.distance }}</span>
+					</li>
+					{%- endfor %}
+				</ul>
+			</div>
+
+			<div class="grid gap-6 md:grid-cols-2">
+				<div class="rounded-3xl bg-white p-6 ring-1 ring-ink-900/5">
+					<h2 class="text-xl font-semibold text-ink-900">House rules</h2>
+					<dl class="mt-4 space-y-2 text-sm">
+						<div class="flex gap-3"><dt class="w-24 shrink-0 font-medium text-ink-900">Check-in</dt><dd class="text-ink-700">{{ p.rules.checkIn }}</dd></div>
+						<div class="flex gap-3"><dt class="w-24 shrink-0 font-medium text-ink-900">Checkout</dt><dd class="text-ink-700">{{ p.rules.checkOut }}</dd></div>
+					</dl>
+					<ul class="mt-4 space-y-2 text-sm text-ink-700">
+						{%- for r in p.rules.items %}<li class="flex items-start gap-2">{{ icon("check", "mt-0.5 h-4 w-4 shrink-0 text-ink-400") }}<span>{{ r }}</span></li>{% endfor %}
+					</ul>
+				</div>
+				<div class="rounded-3xl bg-white p-6 ring-1 ring-ink-900/5">
+					<h2 class="text-xl font-semibold text-ink-900">Extras and fees</h2>
+					<dl class="mt-4 space-y-4 text-sm">
+						{%- for f in p.fees %}
+						<div><dt class="font-medium text-ink-900">{{ f.label }}</dt><dd class="mt-1 text-ink-700">{{ f.value }}</dd></div>
+						{%- endfor %}
+						<div><dt class="font-medium text-ink-900">Cleaning and taxes</dt><dd class="mt-1 text-ink-700">Your direct quote lists the nightly rate, cleaning fee and Arizona lodging taxes up front. No platform service fee.</dd></div>
+					</dl>
+				</div>
+			</div>
+		</div>
+
+		{#- Sticky booking sidebar -#}
+		<aside class="lg:col-span-1">
+			<div class="card sticky top-24 p-6">
+				<div class="flex items-center justify-between">
+					<span class="inline-flex items-center gap-1 text-sm font-semibold text-ink-900">{{ icon("star", "h-4 w-4 text-gold-500") }} {{ p.rating | rating }} <span class="font-normal text-ink-500">· {{ p.reviewCount }} reviews</span></span>
+					<span class="rounded-full bg-clay-50 px-2.5 py-1 text-xs font-semibold text-clay-700">Book direct</span>
+				</div>
+				<h2 class="mt-3 text-xl font-semibold text-ink-900">Request your dates</h2>
+				<p class="mt-1 text-sm text-ink-500">We reply {{ metadata.host.responseTime }} with availability and a direct quote.</p>
+				<a href="/book/?home={{ p.slug }}" class="btn-primary mt-5 w-full">Request to book</a>
+				<a href="mailto:{{ metadata.booking.email }}?subject={{ ('Booking request: ' + p.name) | urlencode }}" class="btn-secondary mt-2 w-full">{{ icon("mail", "h-4 w-4") }} Email us</a>
+				<ul class="mt-5 space-y-2 text-sm text-ink-700">
+					<li class="flex items-start gap-2">{{ icon("check", "mt-0.5 h-4 w-4 shrink-0 text-pool-600") }} No platform service fee</li>
+					<li class="flex items-start gap-2">{{ icon("check", "mt-0.5 h-4 w-4 shrink-0 text-pool-600") }} Superhost, {{ metadata.host.yearsHosting }} years hosting</li>
+					<li class="flex items-start gap-2">{{ icon("check", "mt-0.5 h-4 w-4 shrink-0 text-pool-600") }} Self check-in with keypad</li>
+					<li class="flex items-start gap-2">{{ icon("check", "mt-0.5 h-4 w-4 shrink-0 text-pool-600") }} {{ p.fiveStarShare }}% of reviews are 5 stars</li>
+				</ul>
+				<div class="mt-5 border-t border-ink-900/10 pt-4">
+					<p class="text-xs text-ink-400">Prefer to book through a platform?</p>
+					<a href="{{ p.airbnb }}" target="_blank" rel="noopener" class="mt-1 inline-flex items-center gap-1 text-sm font-medium text-ink-700 hover:text-clay-700">View on Airbnb {{ icon("external", "h-3.5 w-3.5") }}</a>
+				</div>
+			</div>
+		</aside>
+	</div>
+</section>
+
+{#- Ratings -#}
+<section class="bg-sand-100 py-16">
+	<div class="wrap grid items-center gap-10 lg:grid-cols-3">
+		<div>
+			<p class="eyebrow">Guest ratings</p>
+			<h2 class="mt-2 text-3xl font-semibold text-ink-900">{{ p.rating | rating }} <span class="text-lg font-normal text-ink-500">out of 5</span></h2>
+			<p class="mt-1 text-sm text-ink-500">{{ p.reviewCount }} verified reviews on Airbnb. {{ p.airbnbRank }}.</p>
+			<ul class="mt-4 space-y-2 text-sm text-ink-700">
+				{%- for line in p.guestsSay %}<li class="flex items-start gap-2">{{ icon("heart", "mt-0.5 h-4 w-4 shrink-0 text-clay-600") }}<span>{{ line }}</span></li>{% endfor %}
+			</ul>
+		</div>
+		<ul class="grid gap-3 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-3">
+			{%- for label, score in p.ratingBreakdown %}
+			<li class="rounded-2xl bg-white p-4 ring-1 ring-ink-900/5">
+				<div class="flex items-center justify-between text-sm"><span class="font-medium text-ink-900">{{ label }}</span><span class="font-semibold text-ink-900">{{ score | rating }}</span></div>
+				<div class="mt-2 h-1.5 overflow-hidden rounded-full bg-sand-200"><div class="h-full rounded-full bg-clay-600" style="width: {{ (score / 5 * 100) | round }}%"></div></div>
+			</li>
+			{%- endfor %}
+		</ul>
+	</div>
+</section>
+
+{#- Other homes -#}
+<section class="wrap py-20">
+	<p class="eyebrow">More options</p>
+	<h2 class="mt-2 text-2xl font-semibold text-ink-900 md:text-3xl">{% if properties.length > 2 %}Our other Scottsdale homes{% else %}Our other Scottsdale home{% endif %}</h2>
+	<div class="mt-8 grid gap-6 md:grid-cols-2">
+		{%- for other in properties %}{% if other.slug != p.slug %}{% set p = other %}{% include "components/property-card.njk" %}{% endif %}{% endfor %}
+		{%- if properties.length == 2 %}
+		<div class="card flex flex-col justify-center p-8 md:p-10">
+			<p class="eyebrow">Not sure which one?</p>
+			<h3 class="mt-3 text-2xl font-semibold text-ink-900">See both homes side by side</h3>
+			<p class="mt-3 text-ink-500">Bedrooms, pool or hot tub, who each home suits best, and what guests say, all on one page.</p>
+			<div class="mt-6 flex flex-col gap-3 sm:flex-row">
+				<a href="/#homes" class="btn-secondary">Compare the homes</a>
+				<a href="/contact/" class="btn-primary">Ask us</a>
+			</div>
+		</div>
+		{%- endif %}
+	</div>
+</section>
+
+{#- Mobile sticky CTA -#}
+<div class="fixed inset-x-0 bottom-0 z-30 border-t border-ink-900/10 bg-white/95 p-3 backdrop-blur lg:hidden print:hidden">
+	<div class="wrap flex items-center justify-between gap-3">
+		<div class="min-w-0">
+			<p class="truncate text-sm font-semibold text-ink-900">{{ property.name }}</p>
+			<p class="text-xs text-ink-500">{{ icon("star", "inline h-3 w-3 text-gold-500") }} {{ property.rating | rating }} · no platform fees</p>
+		</div>
+		<a href="/book/?home={{ property.slug }}" class="btn-primary shrink-0 !py-2.5">Request to book</a>
+	</div>
+</div>
+<div class="h-20 lg:hidden"></div>
+
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "VacationRental",
+	"name": {{ property.name | dump | safe }},
+	"description": {{ property.description[0] | dump | safe }},
+	"url": "{{ metadata.root }}{{ page.url }}",
+	"image": "{{ metadata.root }}{{ property.heroImage.src }}",
+	"brand": { "@type": "Brand", "name": "{{ metadata.brand }}" },
+	"address": { "@type": "PostalAddress", "addressLocality": "Scottsdale", "addressRegion": "AZ", "addressCountry": "US" },
+	"containsPlace": { "@type": "Accommodation", "occupancy": { "@type": "QuantitativeValue", "value": {{ property.guests }} }, "numberOfBedrooms": {{ property.bedrooms }}, "numberOfBathroomsTotal": {{ property.bathrooms }}, "petsAllowed": true },
+	"aggregateRating": { "@type": "AggregateRating", "ratingValue": {{ property.rating }}, "reviewCount": {{ property.reviewCount }}, "bestRating": 5 },
+	"checkinTime": "16:00", "checkoutTime": "11:00",
+	"sameAs": "{{ property.airbnb }}"
+}
+</script>
+
+<script>
+	(function () {
+		var dialog = document.getElementById("lightbox");
+		var grid = document.querySelector("[data-gallery]");
+		if (!dialog || !grid || typeof dialog.showModal !== "function") return;
+		var photos = {{ property.gallery | dump | safe }};
+		var img = dialog.querySelector("[data-lightbox-img]");
+		var cap = dialog.querySelector("[data-lightbox-caption]");
+		var current = 0;
+		function show(i) {
+			current = (i + photos.length) % photos.length;
+			var thumb = grid.querySelectorAll("img")[current];
+			img.src = thumb.currentSrc || thumb.src;
+			img.alt = photos[current].alt;
+			cap.textContent = (current + 1) + " / " + photos.length + "  ·  " + photos[current].alt;
+		}
+		grid.addEventListener("click", function (e) {
+			var btn = e.target.closest("[data-index]");
+			if (!btn) return;
+			show(parseInt(btn.dataset.index, 10));
+			dialog.showModal();
+		});
+		dialog.querySelector("[data-close]").addEventListener("click", function () { dialog.close(); });
+		dialog.querySelector("[data-prev]").addEventListener("click", function () { show(current - 1); });
+		dialog.querySelector("[data-next]").addEventListener("click", function () { show(current + 1); });
+		dialog.addEventListener("click", function (e) { if (e.target === dialog) dialog.close(); });
+		dialog.addEventListener("keydown", function (e) {
+			if (e.key === "ArrowLeft") show(current - 1);
+			if (e.key === "ArrowRight") show(current + 1);
+		});
+	})();
+</script>

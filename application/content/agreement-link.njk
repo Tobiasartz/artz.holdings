@@ -1,83 +1,65 @@
 ---
 layout: layouts/basic.njk
-title: Generate Agreement Link
+title: Generate agreement link
+eyebrow: Owner tools
+description: Build a pre-filled rental agreement link for a direct booking.
+contentClass: max-w-2xl
+eleventyExcludeFromCollections: true
+noindex: true
 ---
+{%- from "components/icons.njk" import icon -%}
+<p class="mb-6 text-ink-500">Fill in the booking and copy the link into the guest's confirmation email. The agreement can only be generated for homes owned by ArtzHoldings LLC.</p>
 
-<div class="max-w-2xl mx-auto px-4 py-8 text-gray-800">
-	<h1 class="text-3xl font-bold mb-6 text-center">Generate Agreement Link</h1>
-
-	<form id="linkForm" class="space-y-4 bg-white p-6 rounded shadow">
-		<div>
-			<label class="block text-sm font-medium mb-1">Guest Name</label>
-			<input type="text" name="guestName" required
-						 class="w-full px-3 py-2 border border-gray-300 rounded">
-		</div>
-
-		<div>
-			<label class="block text-sm font-medium mb-1">Property Address</label>
-			<input type="text" name="address" value="8329 E Weldon Ave, Scottsdale, AZ 85251"
-						 class="w-full px-3 py-2 border border-gray-300 rounded">
-		</div>
-
-		<div>
-			<label class="block text-sm font-medium mb-1">Arrival Date</label>
-			<input type="date" name="arrivalDate" required
-						 class="w-full px-3 py-2 border border-gray-300 rounded">
-		</div>
-
-		<div>
-			<label class="block text-sm font-medium mb-1">Number of Days</label>
-			<input type="number" name="numDays" min="1" value="2" required
-						 class="w-full px-3 py-2 border border-gray-300 rounded">
-		</div>
-
-		<div>
-			<label class="block text-sm font-medium mb-1">Daily Rate (USD)</label>
-			<input type="number" name="dailyRate" min="0" step="0.01" value="375.00" required
-						 class="w-full px-3 py-2 border border-gray-300 rounded">
-		</div>
-
-		<div>
-			<label class="block text-sm font-medium mb-1">Cleaning Fee (USD)</label>
-			<input type="number" name="cleaningFee" min="0" step="0.01" value="150.00" required
-						 class="w-full px-3 py-2 border border-gray-300 rounded">
-		</div>
-
-		<div class="flex gap-6">
-			<label class="flex items-center gap-2">
-				<input type="checkbox" name="hasPool" checked> Pool
-			</label>
-			<label class="flex items-center gap-2">
-				<input type="checkbox" name="hasSpa"> Spa
-			</label>
-		</div>
-
-		<div>
-			<label class="block text-sm font-medium mb-2">Additional Guests</label>
-			<div id="additionalGuests" class="space-y-2"></div>
-			<button type="button" id="addGuestBtn"
-							class="mt-2 px-3 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300">
-				+ Add Guest
-			</button>
-		</div>
-
-		<button type="submit"
-						class="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-			Generate Link
-		</button>
-	</form>
-
-	<div id="result" class="mt-6 hidden">
-		<label class="block text-sm font-medium mb-1">Generated Link</label>
-		<div class="flex gap-2">
-			<input type="text" id="resultLink" readonly
-						 class="flex-1 px-3 py-2 border border-gray-300 rounded bg-gray-50 text-sm">
-			<button type="button" id="copyBtn"
-							class="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800">Copy</button>
-		</div>
-		<a id="openLink" href="#" target="_blank"
-			 class="inline-block mt-2 text-blue-600 hover:underline text-sm">Open in new tab →</a>
+<form id="linkForm" class="card space-y-5 p-6 md:p-8">
+	<div>
+		<label class="mb-1 block text-sm font-medium text-ink-800" for="home">Home</label>
+		<select id="home" name="home" required class="w-full rounded-xl border border-sand-300 bg-white px-3 py-2">
+			{%- for p in properties %}{% if p.ownedByCompany %}
+			<option value="{{ p.slug }}">{{ p.name }} · {{ p.address }} · STR {{ p.strLicense }}</option>
+			{%- endif %}{% endfor %}
+		</select>
 	</div>
+
+	<div>
+		<label class="mb-1 block text-sm font-medium text-ink-800" for="guestName">Primary guest name</label>
+		<input id="guestName" type="text" name="guestName" required class="w-full rounded-xl border border-sand-300 px-3 py-2">
+	</div>
+
+	<div class="grid gap-4 sm:grid-cols-2">
+		<div>
+			<label class="mb-1 block text-sm font-medium text-ink-800" for="arrivalDate">Arrival date</label>
+			<input id="arrivalDate" type="date" name="arrivalDate" required class="w-full rounded-xl border border-sand-300 px-3 py-2">
+		</div>
+		<div>
+			<label class="mb-1 block text-sm font-medium text-ink-800" for="numDays">Nights</label>
+			<input id="numDays" type="number" name="numDays" min="1" value="2" required class="w-full rounded-xl border border-sand-300 px-3 py-2">
+		</div>
+		<div>
+			<label class="mb-1 block text-sm font-medium text-ink-800" for="dailyRate">Nightly rate (USD)</label>
+			<input id="dailyRate" type="number" name="dailyRate" min="0" step="0.01" value="375.00" required class="w-full rounded-xl border border-sand-300 px-3 py-2">
+		</div>
+		<div>
+			<label class="mb-1 block text-sm font-medium text-ink-800" for="cleaningFee">Cleaning fee (USD)</label>
+			<input id="cleaningFee" type="number" name="cleaningFee" min="0" step="0.01" value="150.00" required class="w-full rounded-xl border border-sand-300 px-3 py-2">
+		</div>
+	</div>
+
+	<div>
+		<p class="mb-2 block text-sm font-medium text-ink-800">Additional guests</p>
+		<div id="additionalGuests" class="space-y-2"></div>
+		<button type="button" id="addGuestBtn" class="btn-secondary mt-2 !px-4 !py-2 !text-xs">+ Add guest</button>
+	</div>
+
+	<button type="submit" class="btn-primary w-full">Generate link</button>
+</form>
+
+<div id="result" class="card mt-6 hidden p-6">
+	<label class="mb-1 block text-sm font-medium text-ink-800" for="resultLink">Generated link</label>
+	<div class="flex gap-2">
+		<input type="text" id="resultLink" readonly class="flex-1 rounded-xl border border-sand-300 bg-sand-50 px-3 py-2 text-sm">
+		<button type="button" id="copyBtn" class="btn-secondary !px-4 !py-2">Copy</button>
+	</div>
+	<a id="openLink" href="#" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-clay-700 hover:underline">Open in new tab {{ icon("arrow", "h-3.5 w-3.5") }}</a>
 </div>
 
 <script>
@@ -88,12 +70,12 @@ title: Generate Agreement Link
 		const row = document.createElement('div');
 		row.className = 'flex gap-2 guest-row';
 		row.innerHTML = `
-			<input type="text" placeholder="Name" class="flex-1 px-3 py-2 border border-gray-300 rounded guest-name">
-			<select class="px-3 py-2 border border-gray-300 rounded guest-relation">
+			<input type="text" placeholder="Name" class="guest-name flex-1 rounded-xl border border-sand-300 px-3 py-2">
+			<select class="guest-relation rounded-xl border border-sand-300 bg-white px-3 py-2">
 				<option value="">Relation</option>
 				${relations.map(r => `<option value="${r}">${r}</option>`).join('')}
 			</select>
-			<button type="button" class="px-3 py-2 bg-red-100 text-red-700 rounded remove-btn">×</button>
+			<button type="button" class="remove-btn rounded-xl bg-clay-50 px-3 py-2 text-clay-700" aria-label="Remove guest">×</button>
 		`;
 		row.querySelector('.remove-btn').addEventListener('click', () => row.remove());
 		additionalGuestsEl.appendChild(row);
@@ -105,7 +87,7 @@ title: Generate Agreement Link
 		e.preventDefault();
 		const fd = new FormData(this);
 
-		// Convert YYYY-MM-DD -> MM/DD/YYYY
+		// YYYY-MM-DD -> MM/DD/YYYY, which the agreement expects
 		const [y, m, d] = fd.get('arrivalDate').split('-');
 		const arrivalDate = `${m}/${d}/${y}`;
 
@@ -113,22 +95,18 @@ title: Generate Agreement Link
 		document.querySelectorAll('.guest-row').forEach(row => {
 			const name = row.querySelector('.guest-name').value.trim();
 			const relation = row.querySelector('.guest-relation').value;
-			if (name && relation) additionalGuests.push({ name, relation });
+			if (name) additionalGuests.push({ name, relation });
 		});
 
 		const params = new URLSearchParams({
+			home: fd.get('home'),
 			guestName: fd.get('guestName'),
-			address: fd.get('address'),
 			arrivalDate,
 			numDays: fd.get('numDays'),
 			dailyRate: fd.get('dailyRate'),
 			cleaningFee: fd.get('cleaningFee'),
-			hasPool: fd.get('hasPool') ? 'true' : 'false',
-			hasSpa: fd.get('hasSpa') ? 'true' : 'false',
 		});
-		if (additionalGuests.length) {
-			params.set('additionalGuests', JSON.stringify(additionalGuests));
-		}
+		if (additionalGuests.length) params.set('additionalGuests', JSON.stringify(additionalGuests));
 
 		const url = `${window.location.origin}/agreement/?${params.toString()}`;
 		document.getElementById('resultLink').value = url;
@@ -140,7 +118,7 @@ title: Generate Agreement Link
 		const input = document.getElementById('resultLink');
 		input.select();
 		navigator.clipboard.writeText(input.value);
-		this.textContent = 'Copied!';
+		this.textContent = 'Copied';
 		setTimeout(() => (this.textContent = 'Copy'), 1500);
 	});
 </script>

@@ -1,0 +1,13 @@
+---
+layout: layouts/property.njk
+pagination:
+  data: properties
+  size: 1
+  alias: property
+  addAllPagesToCollections: true
+permalink: "/homes/{{ property.slug }}/"
+eleventyComputed:
+  title: "{{ property.name }}: Scottsdale vacation rental"
+  description: "{{ property.tagline }} {{ property.bedrooms }} bedrooms, {{ property.bathrooms }} baths, sleeps {{ property.guests }}, rated {{ property.rating }} by {{ property.reviewCount }} guests. Book direct with no platform fees."
+  ogImage: "{{ property.heroImage.src }}"
+---

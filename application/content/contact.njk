@@ -1,9 +1,47 @@
 ---
-layout: layouts/basic.njk
-title: Book Now!
+layout: layouts/base.njk
+title: Contact
+description: Reach the owners of Artz Holdings' Scottsdale vacation homes directly. We reply within an hour with availability, quotes and answers.
 ---
-
-<iframe
-	src="https://docs.google.com/forms/d/e/1FAIpQLSfTOQiq9RKy2WmSRAmdKlF_BOt53LQ7rDtXXhO2SnYNIqsXSA/viewform?embedded=true"
-	width="100%" height="1827" frameborder="0" marginheight="0" marginwidth="0">Loading…
-</iframe>
+{%- from "components/icons.njk" import icon -%}
+<section class="border-b border-ink-900/5 bg-sand-100">
+	<div class="wrap py-14 md:py-20">
+		<p class="eyebrow">Contact</p>
+		<h1 class="mt-3 text-4xl font-semibold text-ink-900 md:text-5xl">Talk to the people who own the homes</h1>
+		<p class="mt-4 max-w-2xl text-lg text-ink-500">No call center, no ticket queue. Messages go straight to the family that runs both homes, and we reply {{ metadata.host.responseTime }}.</p>
+	</div>
+</section>
+<section class="wrap grid gap-8 py-12 md:grid-cols-3">
+	<a href="/book/" class="card group p-6 transition hover:-translate-y-0.5">
+		<span class="grid h-11 w-11 place-items-center rounded-2xl bg-clay-50 text-clay-600">{{ icon("calendar", "h-5 w-5") }}</span>
+		<h2 class="mt-4 text-lg font-semibold text-ink-900 group-hover:text-clay-700">Request dates</h2>
+		<p class="mt-1 text-sm text-ink-500">The fastest way to get a quote for any of the homes.</p>
+	</a>
+	<a href="mailto:{{ metadata.booking.email }}" class="card group p-6 transition hover:-translate-y-0.5">
+		<span class="grid h-11 w-11 place-items-center rounded-2xl bg-pool-50 text-pool-600">{{ icon("mail", "h-5 w-5") }}</span>
+		<h2 class="mt-4 text-lg font-semibold text-ink-900 group-hover:text-clay-700">{{ metadata.booking.email }}</h2>
+		<p class="mt-1 text-sm text-ink-500">Questions, special requests, group trips and long stays.</p>
+	</a>
+	<div class="card p-6">
+		<span class="grid h-11 w-11 place-items-center rounded-2xl bg-clay-50 text-clay-600">{{ icon("phone", "h-5 w-5") }}</span>
+		<h2 class="mt-4 text-lg font-semibold text-ink-900">Call or text</h2>
+		<div class="mt-2 overflow-x-auto rounded-xl bg-sand-100 p-2">{% include "components/phone-svg.njk" %}</div>
+		<p class="mt-1 text-xs text-ink-400">Handwritten to keep the spam bots away.</p>
+	</div>
+</section>
+<section class="wrap pb-8">
+	<div class="grid gap-6 rounded-3xl bg-white p-8 ring-1 ring-ink-900/5 md:grid-cols-3">
+		<div>
+			<p class="eyebrow">Already booked?</p>
+			<p class="mt-2 text-sm text-ink-700">Your check-in guide and keypad code arrive by email before arrival. Reply to that email any time during your stay.</p>
+		</div>
+		<div>
+			<p class="eyebrow">Business details</p>
+			<p class="mt-2 text-sm text-ink-700">Artz Holdings LLC, Scottsdale, Arizona.<br>{{ metadata.taxId }}</p>
+		</div>
+		<div>
+			<p class="eyebrow">Paperwork</p>
+			<p class="mt-2 text-sm text-ink-700"><a href="/agreement/" class="text-clay-700 underline">Short-term rental agreement</a><br><a href="/privacy-policy/" class="text-clay-700 underline">Privacy policy</a></p>
+		</div>
+	</div>
+</section>

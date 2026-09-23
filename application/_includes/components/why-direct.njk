@@ -1,0 +1,33 @@
+{%- from "components/icons.njk" import icon -%}
+<section id="why-direct" class="wrap scroll-mt-20 py-20 md:py-28">
+	<div class="grid items-start gap-12 lg:grid-cols-5">
+		<div class="lg:col-span-2">
+			<p class="eyebrow">Why book direct</p>
+			<h2 class="mt-3 text-3xl font-semibold text-ink-900 md:text-4xl">Same homes. Same host. Less money to the middleman.</h2>
+			<p class="mt-4 text-lg text-ink-500">Booking platforms add a guest service fee on top of every stay. When you book with us directly, that fee disappears and you get a real person to talk to before, during and after your trip.</p>
+			<a href="/book/" class="btn-primary mt-8">Request your dates {{ icon("arrow", "h-4 w-4") }}</a>
+		</div>
+		<ul class="grid gap-4 sm:grid-cols-2 lg:col-span-3">
+			<li class="card p-6">
+				<span class="grid h-11 w-11 place-items-center rounded-2xl bg-clay-50 text-clay-600">{{ icon("tag", "h-5 w-5") }}</span>
+				<h3 class="mt-4 text-lg font-semibold text-ink-900">No platform service fees</h3>
+				<p class="mt-2 text-sm leading-relaxed text-ink-500">{% if metadata.booking.bestRateGuarantee %}Our direct rate is always the same or lower than the nightly rate on Airbnb, and there is no third-party guest fee added on top.{% else %}Your money goes toward the stay itself, not a third-party guest fee.{% endif %}</p>
+			</li>
+			<li class="card p-6">
+				<span class="grid h-11 w-11 place-items-center rounded-2xl bg-pool-50 text-pool-600">{{ icon("chat", "h-5 w-5") }}</span>
+				<h3 class="mt-4 text-lg font-semibold text-ink-900">A direct line to your host</h3>
+				<p class="mt-2 text-sm leading-relaxed text-ink-500">{{ metadata.host.responseRate }} response rate and replies {{ metadata.host.responseTime }}. Ask about early check-in, pool heating, cribs or anything else before you commit.</p>
+			</li>
+			<li class="card p-6">
+				<span class="grid h-11 w-11 place-items-center rounded-2xl bg-clay-50 text-clay-600">{{ icon("calendar", "h-5 w-5") }}</span>
+				<h3 class="mt-4 text-lg font-semibold text-ink-900">Flexible on the details</h3>
+				<p class="mt-2 text-sm leading-relaxed text-ink-500">Longer stays, luggage drop-off, late checkouts when the calendar allows, and pet arrangements handled person to person.</p>
+			</li>
+			<li class="card p-6">
+				<span class="grid h-11 w-11 place-items-center rounded-2xl bg-pool-50 text-pool-600">{{ icon("shield", "h-5 w-5") }}</span>
+				<h3 class="mt-4 text-lg font-semibold text-ink-900">Clear, written agreement</h3>
+				<p class="mt-2 text-sm leading-relaxed text-ink-500">Every direct stay is covered by a simple <a href="/agreement/" class="underline hover:text-clay-700">short-term rental agreement</a> so you know exactly what to expect. Licensed with the State of Arizona.</p>
+			</li>
+		</ul>
+	</div>
+</section>

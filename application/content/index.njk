@@ -1,476 +1,237 @@
 ---
-title: Listings
 layout: layouts/base.njk
+title: Artz Holdings
+eleventyNavigation:
+  key: Home
+  order: 1
 ---
+{%- from "components/icons.njk" import icon -%}
+{%- set hero = properties[0] -%}
 
-<!--Hero-->
-<div class="pt-24" id="how-does-it-work">
-	<div class="container px-3 mx-auto md:py-20 lg:py-32 flex flex-wrap flex-col md:flex-row items-center">
-		<!--Left Col-->
-		<div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-			<!--            <p class="uppercase tracking-loose w-full">What business are you?</p>-->
-			<h1 class="my-4 text-5xl font-bold leading-tight">
-				<strong style="color: rgb(128, 0, 128); white-space: nowrap;" class="text-6xl">Old Town Scottsdale</strong><br/>
-				Book Your Next Old Town Scottsdale Getaway
-			</h1>
-			<p class="leading-normal text-2xl mb-8">
-				<span class="md:block">Clean, Fully-Stocked, Home away from Home</span>
-				<span class="md:block">- Family Friendly</span>
-				<span class="md:block">- Pool or Hot Tub</span>
-				<span class="md:block">- 10 Minutes from Old Town</span>
-			</p>
-			<a href="/book"
-				 class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-				Book Now
+{#- Hero -#}
+<section class="relative isolate min-h-[min(92vh,56rem)] overflow-hidden bg-ink-900 text-white">
+	<img src="{{ hero.heroImage.src }}" alt="{{ hero.heroImage.alt }}" class="absolute inset-0 -z-10 h-full w-full object-cover" eleventy:widths="960,1440" sizes="100vw" loading="eager" fetchpriority="high">
+	<div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink-900 via-ink-900/50 to-ink-900/20"></div>
+	<div class="wrap flex min-h-[min(92vh,56rem)] flex-col justify-end pb-16 pt-32 md:pb-24">
+		<p class="inline-flex w-fit max-w-full flex-wrap items-center gap-x-2 gap-y-1 rounded-full bg-white/15 px-4 py-1.5 text-sm backdrop-blur">
+			{{ icon("star", "h-4 w-4 text-gold-400") }} <strong>{{ stats.averageRating }}</strong> across {{ stats.reviewCount }} reviews <span class="hidden sm:inline text-white/60">·</span> <span class="w-full sm:w-auto">Superhost since {{ 2026 - metadata.host.yearsHosting }}</span>
+		</p>
+		<h1 class="mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] sm:text-5xl md:text-7xl">Two pool homes in Old Town Scottsdale. Booked direct with the family that owns them.</h1>
+		<p class="mt-6 max-w-2xl text-lg text-white/85 md:text-xl">A heated, gated pool at one. A hot tub and four bedrooms at the other. Both sleep eight, both are stocked like a real home, and neither charges a platform fee when you book here.</p>
+		<div class="mt-10 flex flex-col gap-3 sm:flex-row">
+			<a href="#homes" class="btn-primary !px-8 !py-4 !text-base">See the homes {{ icon("arrow", "h-4 w-4") }}</a>
+			<a href="/book/" class="btn-ghost !px-8 !py-4 !text-base">Request dates</a>
+		</div>
+		<ul class="mt-12 grid max-w-3xl grid-cols-2 gap-4 border-t border-white/15 pt-8 text-sm text-white/80 md:grid-cols-4">
+			<li><span class="block font-display text-2xl font-semibold text-white">{{ stats.reviewCount }}+</span>guest reviews</li>
+			<li><span class="block font-display text-2xl font-semibold text-white">{{ metadata.host.yearsHosting }} yrs</span>hosting in Scottsdale</li>
+			<li><span class="block font-display text-2xl font-semibold text-white">Top 1%</span>of homes on Airbnb</li>
+			<li><span class="block font-display text-2xl font-semibold text-white">$0</span>platform fees booking direct</li>
+		</ul>
+	</div>
+</section>
+
+{#- Homes: editorial feature panels -#}
+<section id="homes" class="wrap scroll-mt-20 py-20 md:py-28">
+	<div class="max-w-2xl">
+		<p class="eyebrow">Our homes</p>
+		<h2 class="mt-3 text-3xl font-semibold text-ink-900 md:text-5xl">Two homes, one standard</h2>
+		<p class="mt-4 text-lg text-ink-500">Both are privately owned, professionally cleaned between every stay, and rated near-perfect by the guests who came before you. The only real question is which backyard fits your trip.</p>
+	</div>
+
+	<div class="mt-14 space-y-10 md:space-y-16">
+		{%- for p in properties %}
+		<article class="card group grid overflow-hidden lg:grid-cols-12 lg:items-stretch">
+			<a href="/homes/{{ p.slug }}/" class="relative block aspect-[4/3] overflow-hidden bg-sand-200 lg:col-span-7 lg:aspect-auto lg:min-h-[30rem] {% if loop.index is even %}lg:order-2{% endif %}" aria-label="See {{ p.name }}">
+				<img src="{{ p.heroImage.src }}" alt="{{ p.heroImage.alt }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" eleventy:widths="800,1400" sizes="(min-width: 1024px) 58vw, 100vw" loading="lazy">
+				<div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-ink-900/55 to-transparent"></div>
+				{%- if p.badge %}<span class="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink-900 backdrop-blur">{{ p.badge }}</span>{% endif %}
+				<span class="absolute bottom-5 left-5 inline-flex items-center gap-1.5 rounded-full bg-ink-900/70 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur">
+					{{ icon("star", "h-4 w-4 text-gold-400") }} {{ p.rating | rating }} <span class="font-normal text-white/80">· {{ p.reviewCount }} reviews</span>
+				</span>
 			</a>
-		</div>
-		<!--Right Col-->
-		<div class="w-full md:w-3/5 py-6 text-center">
-
-		</div>
-	</div>
-</div>
-<div class="relative -mt-12 lg:-mt-24">
-	<svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg"
-	>
-		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-			<g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
-				<path
-					d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
-					opacity="0.100000001"></path>
-				<path
-					d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
-					opacity="0.100000001"
-				></path>
-				<path
-					d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
-					id="Path-4" opacity="0.200000003"></path>
-			</g>
-			<g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
-				<path
-					d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"
-				></path>
-			</g>
-		</g>
-	</svg>
-</div>
-
-<section class="bg-white border-b py-16" id="features">
-	<div class="container max-w-6xl mx-auto px-4">
-		<h2 class="text-5xl font-bold text-center mb-12">Our <span class="text-purple-600">Properties</span></h2>
-		<p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">Experience luxury and comfort in the heart of Old Town Scottsdale. Each property is carefully maintained and fully equipped for your perfect stay.</p>
-
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-			<div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02] group">
-				<div class="relative aspect-w-16 aspect-h-9 overflow-hidden">
-					<img src="old-town-1.avif" class="object-cover w-full h-full transform transition duration-500 group-hover:scale-110" alt="Old Town Property 1" />
-					<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-					<div class="absolute bottom-4 left-4">
-						<span class="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold">Featured Property</span>
-					</div>
-				</div>
-				<div class="p-8">
-					<h2 class="text-4xl font-bold text-gray-800 mb-4 group-hover:text-purple-600 transition duration-300">
-						Old Town - 1
-					</h2>
-					<div class="grid grid-cols-2 gap-4 mb-6">
-						<div class="flex items-center space-x-2">
-							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-							</svg>
-							<span class="text-gray-600">3 Bedrooms</span>
-						</div>
-						<div class="flex items-center space-x-2">
-							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-							</svg>
-							<span class="text-gray-600">2 Bathrooms</span>
-						</div>
-						<div class="flex items-center space-x-2">
-							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-							</svg>
-							<span class="text-gray-600">Pet Friendly</span>
-						</div>
-						<div class="flex items-center space-x-2">
-							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-							</svg>
-							<span class="text-gray-600">Heated Pool</span>
-						</div>
-					</div>
-					<p class="text-gray-600 mb-8">Beautiful, family friendly home in the heart of Old Town. Experience luxury living with a private heated pool and all the comforts of home.</p>
-					<div class="flex flex-col sm:flex-row gap-4">
-						<a href="https://airbnb.com/h/scottsdale-az"
-							target="_blank"
-							class="flex-1 inline-flex justify-center items-center bg-purple-600 text-white font-semibold px-6 py-3 rounded-full hover:bg-purple-700 transition duration-300">
-							<svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm1.5 0c0-6.627-5.373-12-12-12S0 5.373 0 12s5.373 12 12 12 12-5.373 12-12z"/>
-							</svg>
-							View on Airbnb
-						</a>
-						<a href="/book"
-							class="flex-1 inline-flex justify-center items-center bg-white text-purple-600 font-semibold px-6 py-3 rounded-full border-2 border-purple-600 hover:bg-purple-50 transition duration-300">
-							Book Direct
-						</a>
-					</div>
+			<div class="flex flex-col justify-center p-7 md:p-10 lg:col-span-5 lg:p-12">
+				<p class="eyebrow">{{ p.airbnbRank }}</p>
+				<h3 class="mt-3 text-3xl font-semibold text-ink-900 md:text-4xl"><a href="/homes/{{ p.slug }}/" class="hover:text-clay-700">{{ p.name }}</a></h3>
+				<p class="mt-3 text-lg text-ink-500">{{ p.tagline }}</p>
+				<p class="mt-4 leading-relaxed text-ink-700">{{ p.editorial }}</p>
+				<ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-ink-800">
+					<li class="inline-flex items-center gap-1.5">{{ icon("bed", "h-4 w-4 text-clay-600") }} {{ p.bedrooms }} bedrooms</li>
+					<li class="inline-flex items-center gap-1.5">{{ icon("bath", "h-4 w-4 text-clay-600") }} {{ p.bathrooms }} baths</li>
+					<li class="inline-flex items-center gap-1.5">{{ icon("users", "h-4 w-4 text-clay-600") }} Sleeps {{ p.guests }}</li>
+				</ul>
+				<ul class="mt-5 flex flex-wrap gap-2">
+					{%- for h in p.highlights | head(4) %}
+					<li class="chip">{{ icon(h.icon, "h-3.5 w-3.5 text-clay-600") }} {{ h.title }}</li>
+					{%- endfor %}
+				</ul>
+				<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+					<a href="/book/?home={{ p.slug }}" class="btn-primary flex-1">Request to book</a>
+					<a href="/homes/{{ p.slug }}/" class="btn-secondary flex-1">Photos and details</a>
 				</div>
 			</div>
+		</article>
+		{%- endfor %}
+	</div>
 
-			<div class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-[1.02] group">
-				<div class="relative aspect-w-16 aspect-h-9 overflow-hidden">
-					<img src="old-town-2.avif" class="object-cover w-full h-full transform transition duration-500 group-hover:scale-110" alt="Old Town Property 2" />
-					<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-					<div class="absolute bottom-4 left-4">
-						<span class="bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold">Featured Property</span>
-					</div>
+	{#- Side by side -#}
+	<div class="mt-16 overflow-hidden rounded-3xl bg-white ring-1 ring-ink-900/5">
+		<div class="grid gap-0 md:grid-cols-[minmax(10rem,1fr)_2fr_2fr]">
+			<div class="hidden bg-sand-100 px-6 py-4 text-xs font-semibold uppercase tracking-wider text-ink-500 md:block">Side by side</div>
+			{%- for p in properties %}
+			<div class="bg-sand-100 px-6 py-4 text-sm font-semibold text-ink-900 md:text-base">{{ p.name }}</div>
+			{%- endfor %}
+		</div>
+		{%- set rows = [
+			{ label: "Bedrooms and baths", key: "bb" },
+			{ label: "Sleeps", key: "sleeps" },
+			{ label: "Water", key: "pool" },
+			{ label: "Best for", key: "bestFor" },
+			{ label: "Outdoors", key: "outdoor" },
+			{ label: "Rating", key: "rating" }
+		] -%}
+		<dl class="divide-y divide-ink-900/5 text-sm text-ink-700">
+			{%- for r in rows %}
+			<div class="grid gap-x-6 gap-y-1 px-6 py-4 md:grid-cols-[minmax(10rem,1fr)_2fr_2fr] md:items-baseline">
+				<dt class="font-medium text-ink-900">{{ r.label }}</dt>
+				{%- for p in properties %}
+				<dd class="md:contents">
+					<span class="block md:col-auto"><span class="mr-2 font-semibold text-ink-900 md:hidden">{{ p.shortName }}:</span>
+						{%- if r.key == "bb" %}{{ p.bedrooms }} bedrooms, {{ p.bathrooms }} baths
+						{%- elif r.key == "sleeps" %}{{ p.guests }} guests, {{ p.beds }} beds
+						{%- elif r.key == "pool" %}{{ p.compare.pool }}
+						{%- elif r.key == "bestFor" %}{{ p.compare.bestFor }}
+						{%- elif r.key == "outdoor" %}{{ p.compare.outdoor }}
+						{%- elif r.key == "rating" %}<span class="inline-flex items-center gap-1">{{ icon("star", "h-3.5 w-3.5 text-gold-500") }} {{ p.rating | rating }} from {{ p.reviewCount }} reviews</span>
+						{%- endif %}
+					</span>
+				</dd>
+				{%- endfor %}
+			</div>
+			{%- endfor %}
+		</dl>
+	</div>
+</section>
+
+{% include "components/why-direct.njk" %}
+
+{#- How it works -#}
+<section class="wrap py-20 md:py-28">
+	<div class="grid gap-12 lg:grid-cols-5 lg:items-start">
+		<div class="lg:col-span-2">
+			<p class="eyebrow">Booking direct</p>
+			<h2 class="mt-3 text-3xl font-semibold text-ink-900 md:text-4xl">Three steps, no middleman</h2>
+			<p class="mt-4 text-lg text-ink-500">You deal with the owners from the first message to checkout. No call center and no service fee added at the end.</p>
+			<a href="/book/" class="btn-primary mt-8">Start a request {{ icon("arrow", "h-4 w-4") }}</a>
+		</div>
+		<ol class="grid gap-4 lg:col-span-3">
+			{%- set steps = [
+				{ n: "01", title: "Tell us your dates and group", text: "Pick a home, send your dates and who is coming. We check availability and reply, usually within the hour." },
+				{ n: "02", title: "Approve a direct quote", text: "One clear number: nightly rate, cleaning and Arizona lodging tax. Nothing added at checkout." },
+				{ n: "03", title: "Sign, pay, and get your code", text: "A short rental agreement, a secure payment link, then your keypad code and check-in guide land in your inbox before arrival." }
+			] -%}
+			{%- for s in steps %}
+			<li class="flex gap-6 rounded-3xl bg-white p-6 ring-1 ring-ink-900/5 md:p-8">
+				<span class="font-display text-3xl font-semibold text-clay-600">{{ s.n }}</span>
+				<div>
+					<h3 class="text-lg font-semibold text-ink-900">{{ s.title }}</h3>
+					<p class="mt-2 leading-relaxed text-ink-500">{{ s.text }}</p>
 				</div>
-				<div class="p-8">
-					<h2 class="text-4xl font-bold text-gray-800 mb-4 group-hover:text-purple-600 transition duration-300">
-						Old Town - 2
-					</h2>
-					<div class="grid grid-cols-2 gap-4 mb-6">
-						<div class="flex items-center space-x-2">
-							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-							</svg>
-							<span class="text-gray-600">4 Bedrooms</span>
-						</div>
-						<div class="flex items-center space-x-2">
-							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-							</svg>
-							<span class="text-gray-600">2 Bathrooms</span>
-						</div>
-						<div class="flex items-center space-x-2">
-							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-							</svg>
-							<span class="text-gray-600">Pet Friendly</span>
-						</div>
-						<div class="flex items-center space-x-2">
-							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-							</svg>
-							<span class="text-gray-600">Hot Tub</span>
-						</div>
-					</div>
-					<p class="text-gray-600 mb-8">Spacious 4-bedroom home perfect for families or remote work. Features a secluded office space and relaxing hot tub for the ultimate stay experience.</p>
-					<div class="flex flex-col sm:flex-row gap-4">
-						<a href="https://www.airbnb.com/h/oldtown-scottsdale-az"
-							target="_blank"
-							class="flex-1 inline-flex justify-center items-center bg-purple-600 text-white font-semibold px-6 py-3 rounded-full hover:bg-purple-700 transition duration-300">
-							<svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm1.5 0c0-6.627-5.373-12-12-12S0 5.373 0 12s5.373 12 12 12 12-5.373 12-12z"/>
-							</svg>
-							View on Airbnb
-						</a>
-						<a href="/book"
-							class="flex-1 inline-flex justify-center items-center bg-white text-purple-600 font-semibold px-6 py-3 rounded-full border-2 border-purple-600 hover:bg-purple-50 transition duration-300">
-							Book Direct
-						</a>
-					</div>
-				</div>
+			</li>
+			{%- endfor %}
+		</ol>
+	</div>
+</section>
+
+{#- Social proof -#}
+<section class="bg-ink-900 py-20 text-white md:py-28">
+	<div class="wrap grid items-center gap-12 lg:grid-cols-2">
+		<div>
+			<p class="eyebrow !text-gold-400">What guests say</p>
+			<h2 class="mt-3 text-3xl font-semibold md:text-5xl">Rated {{ stats.averageRating }} by {{ stats.reviewCount }} guests</h2>
+			<p class="mt-4 text-lg text-white/75">Both homes carry Airbnb's Guest Favorite badge and rank in the top 1% of homes on the platform. Cleanliness, accuracy, check-in, communication and location all score a perfect 5.0.</p>
+			<div class="mt-8 flex flex-col gap-3 sm:flex-row">
+				<a href="/book/" class="btn-primary">Request to book</a>
+				<a href="#homes" class="btn-ghost">Compare the homes</a>
 			</div>
 		</div>
+		<ul class="grid gap-4 sm:grid-cols-2">
+			{%- for p in properties %}
+			<li class="flex flex-col rounded-3xl bg-white/5 p-6 ring-1 ring-white/10">
+				<p class="inline-flex items-center gap-1 font-display text-4xl font-semibold">{{ icon("star", "h-6 w-6 text-gold-400") }} {{ p.rating | rating }}</p>
+				<p class="mt-1 text-sm text-white/70">{{ p.reviewCount }} reviews · {{ p.fiveStarShare }}% five stars</p>
+				<p class="mt-4 text-base font-medium text-white">{{ p.name }}</p>
+				<p class="mt-1 text-xs text-white/60">{{ p.airbnbRank }}</p>
+				<blockquote class="mt-5 border-l-2 border-gold-400/60 pl-4 text-sm leading-relaxed text-white/80">{{ p.guestsSay[0] }}</blockquote>
+			</li>
+			{%- endfor %}
+		</ul>
 	</div>
 </section>
 
-<section class="bg-gray-100 py-8" id="pricing">
-	<div class="container mx-auto px-2 pt-4 pb-12 text-gray-800">
-
+{#- Explore Scottsdale -#}
+<section class="wrap py-20 md:py-28">
+	<div class="grid gap-12 lg:grid-cols-5">
+		<div class="lg:col-span-2">
+			<p class="eyebrow">The neighborhood</p>
+			<h2 class="mt-3 text-3xl font-semibold text-ink-900 md:text-4xl">Minutes from Old Town, far from the crowds</h2>
+			<p class="mt-4 text-lg text-ink-500">Both homes sit on quiet residential streets a short drive from Old Town Scottsdale, so you get the restaurants, nightlife and ballparks without sleeping next to them.</p>
+			<div class="mt-8 overflow-hidden rounded-3xl">
+				<img src="/img/homes/old-town-poolside-retreat/backyard-pergola.jpg" alt="Shaded patio with bougainvillea and a view of the pool" class="aspect-[4/3] w-full object-cover" eleventy:widths="640,1280" sizes="(min-width: 1024px) 40vw, 100vw" loading="lazy">
+			</div>
+		</div>
+		<ul class="grid gap-4 sm:grid-cols-2 lg:col-span-3">
+			{%- set spots = [
+				{ icon: "utensils", title: "Old Town dining and nightlife", text: "Hundreds of restaurants, rooftop bars and galleries in the Entertainment District, minutes from your door." },
+				{ icon: "trophy", title: "Spring Training", text: "Salt River Fields (Diamondbacks and Rockies) and Scottsdale Stadium (Giants) are both a short drive." },
+				{ icon: "flag", title: "World-class golf", text: "TPC Scottsdale, home of the WM Phoenix Open, plus Silverado, Talking Stick and dozens of courses within 20 minutes." },
+				{ icon: "mountain", title: "Desert hiking", text: "Camelback Mountain, Pinnacle Peak and the McDowell Sonoran Preserve trails for sunrise hikes." },
+				{ icon: "bag", title: "Shopping", text: "Scottsdale Fashion Square and the Old Town boutiques, plus groceries close to both homes." },
+				{ icon: "plane", title: "Easy airport run", text: "Phoenix Sky Harbor is about 20 minutes away. Free parking at both homes." }
+			] -%}
+			{%- for s in spots %}
+			<li class="flex gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-900/5">
+				<span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-pool-50 text-pool-600">{{ icon(s.icon, "h-5 w-5") }}</span>
+				<div>
+					<h3 class="font-semibold text-ink-900">{{ s.title }}</h3>
+					<p class="mt-1 text-sm leading-relaxed text-ink-500">{{ s.text }}</p>
+				</div>
+			</li>
+			{%- endfor %}
+		</ul>
 	</div>
 </section>
-<!-- Change the colour #f8fafc to match the previous section colour -->
-<svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg">
-	<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-		<g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
-			<g class="wave" fill="#f3f4f6">
-				<path
-					d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"
-				></path>
-			</g>
-			<g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
-				<g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
-					<path
-						d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
-						opacity="0.100000001"></path>
-					<path
-						d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
-						opacity="0.100000001"
-					></path>
-					<path
-						d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
-						opacity="0.200000003"></path>
-				</g>
-			</g>
-		</g>
-	</g>
-</svg>
-<section class="container mx-auto text-center py-6 xl:py-24 mb-12 px-4">
-	<h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white mb-20">
-		Your Next Scottsdale Adventure Awaits!
-	</h2>
-	<a href="/book"
-		 class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-		Book Now!
-	</a>
+
+{#- Host -#}
+<section class="bg-sand-100 py-20">
+	<div class="wrap grid items-center gap-10 lg:grid-cols-3">
+		<div class="lg:col-span-2">
+			<p class="eyebrow">Your hosts</p>
+			<h2 class="mt-3 text-3xl font-semibold text-ink-900 md:text-4xl">A Scottsdale family that has hosted guests for {{ metadata.host.yearsHosting }} years</h2>
+			<p class="mt-4 text-lg text-ink-500">We live in the Valley, we look after both homes ourselves, and we answer messages {{ metadata.host.responseTime }}. These are the homes we would want to stay in: stocked kitchens, fast WiFi, real beds in every room and a backyard worth the flight.</p>
+		</div>
+		<ul class="grid grid-cols-2 gap-4 text-center">
+			<li class="card p-5"><span class="block font-display text-3xl font-semibold text-ink-900">{{ metadata.host.responseRate }}</span><span class="text-xs text-ink-500">response rate</span></li>
+			<li class="card p-5"><span class="block font-display text-3xl font-semibold text-ink-900">&lt;1 hr</span><span class="text-xs text-ink-500">typical reply</span></li>
+			<li class="card p-5"><span class="block font-display text-3xl font-semibold text-ink-900">{{ metadata.host.yearsHosting }}</span><span class="text-xs text-ink-500">years hosting</span></li>
+			<li class="card p-5"><span class="block font-display text-3xl font-semibold text-ink-900">{{ stats.homes }}</span><span class="text-xs text-ink-500">homes, both Guest Favorites</span></li>
+		</ul>
+	</div>
 </section>
 
+{% include "components/faq.njk" %}
+{% include "components/cta.njk" %}
 
-<script>
-	/*Toggle dropdown list*/
-	/*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
-
-	var navMenuDiv = document.getElementById("nav-content");
-	var navMenu = document.getElementById("nav-toggle");
-
-	document.onclick = check;
-
-	function check(e) {
-		var target = (e && e.target) || (event && event.srcElement);
-
-		//Nav Menu
-		if (!checkParent(target, navMenuDiv)) {
-			// click NOT on the menu
-			if (checkParent(target, navMenu)) {
-				// click on the link
-				if (navMenuDiv.classList.contains("hidden")) {
-					navMenuDiv.classList.remove("hidden");
-				} else {
-					navMenuDiv.classList.add("hidden");
-				}
-			} else {
-				// click both outside link and outside menu, hide menu
-				navMenuDiv.classList.add("hidden");
-			}
-		}
-	}
-
-	function checkParent(t, elm) {
-		while (t.parentNode) {
-			if (t == elm) {
-				return true;
-			}
-			t = t.parentNode;
-		}
-		return false;
-	}
-</script>
-
-<!-- Add the counter animation script -->
-<script>
-	// Animate number with easing
-	function animateCounter(element, start, end, duration) {
-		let startTimestamp = null;
-		// Exponential easing out - very dramatic deceleration
-		const easeOutExpo = t => (t === 1) ? 1 : 1 - Math.pow(2, -10 * t);
-
-		function formatNumber(num) {
-			if (num >= 1000000) {
-				return (num / 1000000).toFixed(2) + 'M+';
-			}
-			return num.toLocaleString() + '+';
-		}
-
-		function step(timestamp) {
-			if (!startTimestamp) startTimestamp = timestamp;
-			const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-			const easedProgress = easeOutExpo(progress);
-			const currentValue = Math.floor(easedProgress * (end - start) + start);
-
-			// Format the number with M suffix if over a million
-			element.textContent = formatNumber(currentValue);
-
-			if (progress < 1) {
-				window.requestAnimationFrame(step);
-			} else {
-				// Start the live update interval after animation completes
-				startLiveUpdates(element);
-			}
-		}
-
-		window.requestAnimationFrame(step);
-	}
-
-	// Function to start live updates for a counter
-	function startLiveUpdates(element) {
-		console.log('startLiveUpdates!');
-		const startDate = '2025-03-14';
-		let initialNumber, dailyIncrease;
-
-		// Determine which counter this is and set appropriate values
-		if (element.classList.contains('hours-counter')) {
-			initialNumber = 191088;
-			dailyIncrease = 1912;
-		} else if (element.classList.contains('screenshots-counter')) {
-			initialNumber = 1118424;
-			dailyIncrease = 25655;
-		} else if (element.classList.contains('insights-counter')) {
-			initialNumber = 1309512;
-			dailyIncrease = 27567;
-		}
-
-		// Update function
-		function updateCounter() {
-			const currentValue = calculateNumber(startDate, initialNumber, dailyIncrease);
-			if (currentValue >= 1000000) {
-				element.textContent = (currentValue / 1000000).toFixed(2) + 'M+';
-			} else {
-				element.textContent = currentValue.toLocaleString() + '+';
-			}
-		}
-
-		// Update immediately and then every 5 seconds
-		updateCounter();
-		setInterval(updateCounter, 5000);
-	}
-
-	function calculateNumber(startDateString, initialNumber, dailyIncrease, targetDateString) {
-		// Parse the date strings into Date objects.
-		const startDate = new Date(startDateString);
-		const targetDate = targetDateString ? new Date(targetDateString) : new Date();
-
-		// Check if the target date is before the start date.
-		if (targetDate < startDate) {
-			return initialNumber;
-		}
-
-		// Calculate the difference in seconds
-		const timeDifference = targetDate.getTime() - startDate.getTime();
-		const secondsDifference = timeDifference / 1000;
-
-		// Convert daily increase to per-second increase
-		const secondlyIncrease = dailyIncrease / (24 * 60 * 60);
-
-		// Calculate the final number including fractional increases
-		return Math.floor(initialNumber + (secondsDifference * secondlyIncrease));
-	}
-
-	// Set up the counters with initial values and daily increases
-	document.addEventListener('DOMContentLoaded', function () {
-		const startDate = '2025-03-14';
-
-		// Calculate current values
-		const hoursRecorded = calculateNumber(startDate, 191088, 1912);
-		const screenshotsTaken = calculateNumber(startDate, 1118424, 25655);
-		const aiInsights = calculateNumber(startDate, 1309512, 27567);
-
-		// Set the data-counter attributes
-		const hoursElement = document.querySelector('.hours-counter');
-		const screenshotsElement = document.querySelector('.screenshots-counter');
-		const insightsElement = document.querySelector('.insights-counter');
-
-		hoursElement.setAttribute('data-counter', hoursRecorded);
-		screenshotsElement.setAttribute('data-counter', screenshotsTaken);
-		insightsElement.setAttribute('data-counter', aiInsights);
-
-		// Set up the Intersection Observer
-		const observer = new IntersectionObserver((entries, observer) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					const element = entry.target;
-					const endValue = parseInt(element.getAttribute('data-counter'));
-					animateCounter(element, 0, endValue, 5000);
-					observer.unobserve(element);
-				}
-			});
-		}, {
-			threshold: 0.1
-		});
-
-		// Observe the counter elements
-		[hoursElement, screenshotsElement, insightsElement].forEach(element => {
-			observer.observe(element);
-		});
-	});
-</script>
-<script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
-<script>
-	function scrollToSection(event, sectionId) {
-		event.preventDefault();
-		const section = document.getElementById(sectionId);
-		section.scrollIntoView({behavior: 'smooth'});
-
-		// If the mobile menu is open, close it after clicking
-		const navContent = document.getElementById("nav-content");
-		if (!navContent.classList.contains("hidden")) {
-			navContent.classList.add("hidden");
-		}
-	}
-</script>
-<script>
-	// Function to check which section is currently in view
-	function updateActiveSection() {
-		const sections = ['how-does-it-work', 'features', 'pricing'];
-		const navLinks = document.querySelectorAll('.nav-link');
-
-		// Get the current scroll position and viewport height
-		const viewportHeight = window.innerHeight;
-		const currentPos = window.scrollY + (viewportHeight / 2);
-
-		// Check if we're at the top of the page
-		if (window.scrollY < 50) {
-			// If at top, highlight "How does it work"
-			navLinks.forEach(link => {
-				if (link.dataset.section === 'how-does-it-work') {
-					link.classList.add('font-bold');
-				} else {
-					link.classList.remove('font-bold');
-				}
-			});
-			return;
-		}
-
-		// Otherwise, find which section is currently in view
-		let currentSection = null;
-		sections.forEach(sectionId => {
-			const section = document.getElementById(sectionId);
-			const sectionTop = section.offsetTop;
-			const sectionHeight = section.offsetHeight;
-
-			if (currentPos >= sectionTop && currentPos < (sectionTop + sectionHeight)) {
-				currentSection = sectionId;
-			}
-		});
-
-		// Update navigation links
-		navLinks.forEach(link => {
-			if (currentSection && link.dataset.section === currentSection) {
-				link.classList.add('font-bold');
-			} else {
-				link.classList.remove('font-bold');
-			}
-		});
-	}
-
-	// Add scroll event listener with throttling to improve performance
-	let scrollTimeout;
-	window.addEventListener('scroll', () => {
-		if (!scrollTimeout) {
-			scrollTimeout = setTimeout(() => {
-				updateActiveSection();
-				scrollTimeout = null;
-			}, 10);
-		}
-	});
-
-	// Update active section on page load
-	document.addEventListener('DOMContentLoaded', updateActiveSection);
-
-	// Update the scrollToSection function to include active section update
-	function scrollToSection(event, sectionId) {
-		event.preventDefault();
-		const section = document.getElementById(sectionId);
-		section.scrollIntoView({behavior: 'smooth'});
-
-		// If the mobile menu is open, close it after clicking
-		const navContent = document.getElementById("nav-content");
-		if (!navContent.classList.contains("hidden")) {
-			navContent.classList.add("hidden");
-		}
-
-		// Update active section after scrolling
-		setTimeout(updateActiveSection, 100);
-	}
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "LodgingBusiness",
+	"name": "{{ metadata.brand }}",
+	"legalName": "ArtzHoldings LLC",
+	"url": "{{ metadata.root }}/",
+	"image": "{{ metadata.root }}{{ metadata.ogImage }}",
+	"email": "{{ metadata.booking.email }}",
+	"address": { "@type": "PostalAddress", "addressLocality": "Scottsdale", "addressRegion": "AZ", "addressCountry": "US" },
+	"aggregateRating": { "@type": "AggregateRating", "ratingValue": {{ stats.averageRating }}, "reviewCount": {{ stats.reviewCount }}, "bestRating": 5 }
+}
 </script>

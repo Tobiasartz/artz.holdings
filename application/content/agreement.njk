@@ -1,33 +1,41 @@
 ---
 layout: layouts/basic.njk
-title: Agreement
+title: Rental agreement
+eyebrow: Paperwork
+description: The short-term lease agreement every direct booking is covered by.
+contentClass: max-w-4xl
 ---
-<div class="max-w-4xl mx-auto px-4 py-8 bg-white text-gray-800">
+{%- set companyHomes = [] -%}
+{%- for home in properties -%}{%- if home.ownedByCompany -%}{%- set companyHomes = (companyHomes.push({ slug: home.slug, name: home.name, address: home.address, strLicense: home.strLicense, guests: home.guests, adultsMax: home.adultsMax, checkIn: home.rules.checkIn, checkOut: home.rules.checkOut, amenities: home.amenities }), companyHomes) -%}{%- endif -%}{%- endfor -%}
+<script id="company-homes" type="application/json">{{ companyHomes | dump | safe }}</script>
+<div id="agreement-unavailable" class="hidden max-w-4xl mx-auto px-4 py-8 bg-white text-gray-800">
+	<h2 class="text-2xl font-bold mb-4">Rental agreement not available for this home</h2>
+	<p>This home is not owned by ArtzHoldings LLC, so it is booked directly with its owner and is covered by the owner's own rental terms. Please book it through its listing page.</p>
+</div>
+<div id="agreement-body" class="max-w-4xl mx-auto px-4 py-8 bg-white text-gray-800">
 
-	<h1 class="text-3xl font-bold mb-8 text-center">VACATION RENTAL SHORT TERM LEASE AGREEMENT</h1>
+	<h2 class="text-3xl font-bold mb-8 text-center">VACATION RENTAL SHORT TERM LEASE AGREEMENT</h2>
 
 	<p class="mb-6 text-justify">This Vacation Rental Short Term Lease Agreement (this "Agreement") is made by and between
-		Tobias
-		Artz ("Owner") and <span data-main-guest-name></span> ("Guest") of the date last written on the signature page of
+		ArtzHoldings LLC, an Arizona limited liability company ("Owner"), and <span data-main-guest-name></span> ("Guest") of the date last written on the signature page of
 		this
 		Agreement. Owner and Guest may be referred to individually as "Party" and collectively as "Parties."
 		For good and valuable consideration, the sufficiency of which is acknowledged, the Parties agree as follows:</p>
 
 	<h2 class="text-2xl font-semibold mt-8 mb-4">1. Property.</h2>
 
-	<p class="mb-4">The property is described as a house located at <span data-address></span>
-		(the "Property"). The Property is owned by Owner. The Property is fully furnished by Owner and equipped
-		for light housekeeping. The following amenities are included in the Property:</p>
+	<p class="mb-4">The property is described as a house located at <span data-property-address>8323 E Weldon Ave, Scottsdale, AZ 85251</span>
+		(the "Property"), known as <span data-property-name>Old Town Family Hideaway</span>. The Property is owned by Owner and is licensed by the City of Scottsdale as a short-term rental, license number <span data-property-license>2037414</span>. The Property is fully furnished by Owner and equipped
+		for light housekeeping. Owner's 24-hour emergency contact for the Property, as registered with the City of Scottsdale, is {{ metadata.host.emergencyPhone }}. The following amenities are included in the Property:</p>
 
-	<ul class="list-disc pl-8 mb-6 space-y-1">
+	<ul class="list-disc pl-8 mb-6 space-y-1" data-property-amenities>
 		<li>microwave</li>
 		<li>dishwasher</li>
 		<li>refrigerator</li>
 		<li>washer</li>
 		<li>dryer</li>
 		<li>wifi</li>
-		<li data-amenity-pool>swimming pool</li>
-		<li data-amenity-spa style="display: none;">spa</li>
+		<li>swimming pool</li>
 		<li>linens</li>
 	</ul>
 
@@ -212,14 +220,11 @@ title: Agreement
 
 	<p class="mb-2">Acceptable payment methods are:</p>
 	<ul class="list-disc pl-8 mb-6 space-y-1">
-		<li>Venmo</li>
-		<li>Zelle</li>
-		<li>Cash</li>
-		<li>Personal check</li>
+		<li>Venmo, paid to Owner's business account "ArtzHoldings LLC" using the payment link in Guest's booking confirmation</li>
+		<li>Check, payable to "ArtzHoldings LLC"</li>
 	</ul>
 
-	<p>Checks should be made payable to: Tobias Artz and sent to: 6525 N 81st Place, 85250, Scottsdale
-		Arizona.</p>
+	<p>All payments are made to Owner, ArtzHoldings LLC, and never to an individual. Checks should be mailed to ArtzHoldings LLC, 8323 E Weldon Ave, Scottsdale, Arizona 85251. Payments sent to any other account are not credited to this Agreement.</p>
 
 	<h2 class="text-2xl font-semibold mt-8 mb-4">9. Security Deposit.</h2>
 
@@ -317,7 +322,11 @@ title: Agreement
 	<p>If Guest or any member of the Rental Party violates any of the terms of this
 		Agreement, including but not limited to maximum occupancy, visitors and rental rules and restrictions,
 		Owner may evict Guest and the Rental Party from the Property and Guest will forfeit all rent and security
-		deposit paid. 19. Governing Law. This Agreement and all transactions contemplated by this
+		deposit paid.</p>
+
+	<h2 class="text-2xl font-semibold mt-8 mb-4">19. Governing Law.</h2>
+
+	<p>This Agreement and all transactions contemplated by this
 		Agreement will be
 		governed by, and constructed and enforced in accordance with the laws of the State of Arizona (not
 		including its conflicts of laws provisions). Any dispute arising from this Agreement shall be resolved
@@ -329,10 +338,18 @@ title: Agreement
 	<h2 class="text-2xl font-semibold mt-8 mb-4">20. Amendments.</h2>
 
 	<p>This Agreement may be amended or modified only by a written agreement signed by
-		both Owner and Guest. 21. No Waiver. Neither Owner nor Guest shall be deemed to have waived any
+		both Owner and Guest.</p>
+
+	<h2 class="text-2xl font-semibold mt-8 mb-4">21. No Waiver.</h2>
+
+	<p>Neither Owner nor Guest shall be deemed to have waived any
 		provision of this
 		Agreement or the exercise of any rights held under this Agreement unless such waiver is made expressly
-		and in writing. 22. Severability. If any provision of this Agreement is held to be invalid or unenforceable in whole
+		and in writing.</p>
+
+	<h2 class="text-2xl font-semibold mt-8 mb-4">22. Severability.</h2>
+
+	<p>If any provision of this Agreement is held to be invalid or unenforceable in whole
 		or in
 		part, the remaining provisions shall not be affected and shall continue to be valid and enforceable as
 		though the invalid or unenforceable parts had not been included in this Agreement.</p>
@@ -340,7 +357,7 @@ title: Agreement
 	<h2 class="text-2xl font-semibold mt-8 mb-4">23. Notices.</h2>
 
 	<p>Any notice or communication under this Agreement must be in writing and sent via one of
-		the following options:</p>
+		the following options. Notices to Owner go to ArtzHoldings LLC, 8323 E Weldon Ave, Scottsdale, Arizona 85251, or to the email address in Guest's booking confirmation. For urgent matters during a stay, call or text the 24-hour emergency line at {{ metadata.host.emergencyPhone }}.</p>
 	<ul>
 		<li>personally delivered</li>
 		<li>electronic email transmission</li>
@@ -416,8 +433,8 @@ title: Agreement
 
 			</div>
 			<div class="mt-4">
-				<div class="text-sm text-gray-600">Owner Name</div>
-				<div class="border-b border-gray-300 py-2">Tobias Artz</div>
+				<div class="text-sm text-gray-600">Owner</div>
+				<div class="border-b border-gray-300 py-2">ArtzHoldings LLC<br><span class="text-sm text-gray-600">By: Tobias J. Artz, Authorized Signer</span></div>
 			</div>
 			<div class="mt-4">
 				<div class="text-sm text-gray-600">Date</div>
@@ -600,10 +617,29 @@ title: Agreement
 		const rawArrivalDate = urlParams.get('arrivalDate') || ''; // Format: MM/DD/YYYY
 		const dailyRate = parseFloat(urlParams.get('dailyRate')) || 375.00;
 		const numDays = parseInt(urlParams.get('numDays')) || 2;
-		const address = urlParams.get('address') || '8329 E Weldon Ave, Scottsdale, AZ 85251';
 		const cleaningFee = urlParams.has('cleaningFee') ? parseFloat(urlParams.get('cleaningFee')) : 150.00;
-		const hasPool = urlParams.get('hasPool') !== 'false';
-		const hasSpa = urlParams.get('hasSpa') === 'true';
+
+		// Select the home. Only homes owned by ArtzHoldings LLC are contractable under this Agreement.
+		const companyHomes = JSON.parse(document.getElementById('company-homes').textContent || '[]');
+		const requestedSlug = urlParams.get('home') || '';
+		const home = companyHomes.find(h => h.slug === requestedSlug) || (requestedSlug ? null : companyHomes[0]);
+		if (!home) {
+			document.getElementById('agreement-unavailable').classList.remove('hidden');
+			document.getElementById('agreement-body').classList.add('hidden');
+			return;
+		}
+		document.querySelectorAll('[data-property-address]').forEach(el => el.textContent = home.address);
+		document.querySelectorAll('[data-property-name]').forEach(el => el.textContent = home.name);
+		document.querySelectorAll('[data-property-license]').forEach(el => el.textContent = home.strLicense);
+		const amenityList = document.querySelector('[data-property-amenities]');
+		if (amenityList && home.amenities) {
+			amenityList.innerHTML = '';
+			Object.values(home.amenities).flat().forEach(item => {
+				const li = document.createElement('li');
+				li.textContent = item;
+				amenityList.appendChild(li);
+			});
+		}
 
 		// Initialize signature pad
 		const guestCanvas = document.getElementById('guestSignature');
@@ -709,17 +745,6 @@ title: Agreement
 		document.querySelector('[data-subtotal]').textContent = subtotal.toFixed(2);
 		document.querySelector('[data-cleaning-fee]').textContent = cleaningFee.toFixed(2);
 		document.querySelector('[data-total]').textContent = total.toFixed(2);
-
-		// Update address
-		document.querySelectorAll('[data-address]').forEach(element => {
-			element.textContent = address;
-		});
-
-		// Toggle pool/spa amenities
-		const poolAmenity = document.querySelector('[data-amenity-pool]');
-		if (poolAmenity) poolAmenity.style.display = hasPool ? 'list-item' : 'none';
-		const spaAmenity = document.querySelector('[data-amenity-spa]');
-		if (spaAmenity) spaAmenity.style.display = hasSpa ? 'list-item' : 'none';
 
 		// Handle additional guest inputs
 		const guestInputs = document.querySelectorAll('[data-guest-name]');
